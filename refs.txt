@@ -1,0 +1,59 @@
+mans nd docs
+https://www.cplusplus.com/reference/vector/vector/
+AllocatorAwareContainer // https://en.cppreference.com/w/cpp/named_req/AllocatorAwareContainer
+https://en.cppreference.com/w/cpp/memory/allocator
+
+
+arrays that can change in size
+Internally, vectors use a dynamically allocated array to store their elements
+extra storage to accommodate for possible growth
+classes will be in namespace ft
+
+Expected implementions for ft::Vector :
+
+Public Member functions:
+    (constructor)   //  Construct vector
+    (destructor)    //  Vector destructor
+    operator=   //  Assign content
+
+    Iterators:
+    begin   //  Return iterator to beginning
+    end //  Return iterator to end
+    rbegin  //  Return reverse iterator to reverse beginning
+    rend    //  Return reverse iterator to reverse end
+
+    Capacity:
+    size    //  Return size
+    max_size    //  Return maximum size
+    resize  //  Change size
+    capacity    //  Return size of allocated storage capacity
+    empty   //  Test whether vector is empty
+    reserve //  Request a change in capacity
+
+    Element access:
+    operator[]  //  Access element
+    at  //  Access element
+    front   //  Access first element
+    back    //  Access last element
+
+    Modifiers:
+    assign  //  Assign vector content
+    push_back   //  Add element at the end
+    pop_back    //  Delete last element
+    insert  //  Insert elements
+    erase   //  Erase elements
+    swap    //  Swap content
+    clear   //  Clear content
+
+    Allocator:
+    get_allocator   //  Get allocator
+
+Non-member function overloads:
+    relational operators    //  Relational operators for vector (function template )
+    swap    //  Exchange contents of vectors (function template )
+
+
+vector behavior
+https://stackoverflow.com/questions/17299951/c-vector-what-happens-whenever-it-expands-reallocate-on-stack
+Vector constructor https://www.cplusplus.com/reference/vector/vector/vector/
+
