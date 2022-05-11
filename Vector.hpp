@@ -5,6 +5,7 @@
 #include <exception>
 #include <iostream>
 #include <memory>
+#include <iterator>
 
 // class IndexOutOfRange: public std::exception {
 // private:
@@ -15,6 +16,31 @@
 //       return exception;
 //    }
 // };
+
+// template <class T>
+// class iterator: public std::iterator<std::random_access_iterator_tag, T>
+// {
+//         T* p;
+//     public:
+//         iterator(): p(0) {}
+//         iterator(T* x): p(x) {}
+//         iterator(const iterator& mit) : p(mit.p) {}
+//         iterator& operator++() {++p;return *this;}
+//         iterator& operator--() {--p;return *this;}
+//         bool operator==(const iterator& rhs) const {return p==rhs.p;}
+//         bool operator!=(const iterator& rhs) const {return p!=rhs.p;}
+//         int& operator*() {return *p;}
+// };
+
+// template <class Category, class T, class Distance = ptrdiff_t,
+//           class Pointer = T*, class Reference = T&>
+//   struct iterator {
+//     typedef T         value_type;
+//     typedef Distance  difference_type;
+//     typedef Pointer   pointer;
+//     typedef Reference reference;
+//     typedef Category  iterator_category;
+//   };
 
 template <class T>
 class Vector
@@ -29,6 +55,7 @@ private:
 public:
     Vector();
     Vector( int n, T val );
+    Vector( T* first, T* last );
     Vector(const Vector& arr);
     Vector&  operator=(const Vector& arr);
     T&      operator[] (int index) const ;
@@ -36,6 +63,26 @@ public:
 
     int size() const ;
     int capacity() const ;
+
+    class iterator
+    {
+            T* p;
+        public:
+            iterator(): p(0) {}
+            iterator(T* x): p(x) {}
+            iterator operator=(const iterator& rhs) const { iterator iter(rhs.p);
+                return iter;} 
+            // iterator(const iterator& mit) : p(mit.p) {}
+            iterator& operator++() {++p;return *this;}
+            iterator& operator--() {--p;return *this;}
+            bool operator==(const iterator& rhs) const {return p==rhs.p;}
+            bool operator!=(const iterator& rhs) const {return p!=rhs.p;}
+            T& operator*() {return *p;}
+    };
+
+    iterator begin() { iterator iter(data);
+        return iter; };
+    iterator end() {return iterator(data + this->size()); } ;
 
     // void  deepCopy(const Vector& arr);
     // IndexOutOfRange _ioor;
@@ -62,9 +109,26 @@ Vector<T>::Vector( int n, T val ) {
 }
 
 template<class T>
+Vector<T>::Vector( T* first, T* last ) {
+    int size = last - first;
+    std::cout << "Range constructor called " << size << std::endl;
+    this->data = alloc.allocate(size);
+    int i = 0;
+    while (first != last) {
+        alloc.construct(data+i, *first);
+        i++;
+        first++;
+    }
+    this->_begin = data;
+    this->_end = data + size;
+    this->_capacity = data + size;
+}
+
+template<class T>
 Vector<T>::~Vector() {
     std::cout << "Destructor called" << std::endl;
-    alloc.deallocate(this->data, this->capacity());
+    if (this->capacity() > 0)
+        alloc.deallocate(this->data, this->capacity());
 }
 
 template<class T>
