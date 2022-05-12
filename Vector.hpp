@@ -21,26 +21,26 @@ public:
     Vector();
     Vector( int n, T val );
     Vector( T* first, T* last );
-    Vector( Vector& v );
-    Vector&  operator=(const Vector& arr);
-    T&      operator[] (int index) const ;
+    Vector( const Vector& v );
+    Vector&  operator=( const Vector& rhs );
+    T&      operator[] ( int index ) const ;
     ~Vector();
 
     int size() const ;
     int capacity() const ;
 
-    class iterator: std::iterator<std::random_access_iterator_tag, T>
+    class iterator
     {
             T* p;
         public:
             iterator(): p(0) {}
             iterator(T* x): p(x) {}
-            iterator operator=(const iterator& rhs) {
+            iterator operator=( const iterator& rhs ) {
                 if (*this == rhs)
                     return *this;
                 this->p = rhs.p;
                 return *this;}
-            iterator(const iterator& iter) : p(iter.p) {}
+            iterator( const iterator& iter ) : p(iter.p) {}
             iterator& operator++() {++p;return *this;}
             iterator& operator--() {--p;return *this;}
             iterator operator++( int ) { iterator old(*this); ++p;return old; }
@@ -56,12 +56,12 @@ public:
         public:
             reverse_iterator(): p(0) {}
             reverse_iterator(T* x): p(x) {}
-            reverse_iterator operator=(const reverse_iterator& rhs) {
+            reverse_iterator operator=( const reverse_iterator& rhs ) {
                 if (*this == rhs)
                     return *this;
                 this->p = rhs.p;
                 return *this;}
-            reverse_iterator(const reverse_iterator& iter) : p(iter.p) {}
+            reverse_iterator( const reverse_iterator& iter) : p(iter.p ) {}
             reverse_iterator& operator++() {--p;return *this;}
             reverse_iterator& operator--() {++p;return *this;}
             reverse_iterator operator++( int ) { reverse_iterator old(*this); --p;return old; }
@@ -71,10 +71,10 @@ public:
             T& operator*() {return *p;}
     };
 
-    iterator begin() { return iterator(data); };
-    iterator end() { return iterator(data + this->size()); };
-    reverse_iterator rbegin() { return reverse_iterator(data + this->size() - 1); };
-    reverse_iterator rend() { return reverse_iterator(data-1); };
+    iterator begin() const { return iterator(data); };
+    iterator end() const { return iterator(data + this->size()); };
+    reverse_iterator rbegin() const { return reverse_iterator(data + this->size() - 1); };
+    reverse_iterator rend() const { return reverse_iterator(data-1); };
     
 };
 
@@ -111,7 +111,7 @@ Vector<T, Alloc>::Vector( T* first, T* last ) {
 }
 
 template<class T, class Alloc>
-Vector<T, Alloc>::Vector( Vector& v ) {
+Vector<T, Alloc>::Vector( const Vector& v ) {
     int size = v.size();
     Vector<T, Alloc>::iterator first = v.begin();
     Vector<T, Alloc>::iterator last = v.end();
@@ -128,9 +128,32 @@ Vector<T, Alloc>::Vector( Vector& v ) {
 }
 
 template<class T, class Alloc>
-Vector<T, Alloc>::~Vector() {
+ Vector<T, Alloc>::~Vector() {
     if (this->capacity() > 0)
         alloc.deallocate(this->data, this->capacity());
+}
+
+template<class T, class Alloc>
+Vector<T, Alloc>&  Vector<T, Alloc>::operator=( const Vector& rhs ) {
+    // if (*this == rhs)
+    //     return *this;
+
+    // alloc.deallocate(this->data, this->capacity());
+    int size = rhs.size();
+    Vector<T, Alloc>::iterator first = rhs.begin();
+    Vector<T, Alloc>::iterator last = rhs.end();
+    this->data = alloc.allocate(size);
+    int i = 0;
+    while (first != last) {
+        alloc.construct(data+i, *first);
+        i++;
+        first++;
+    }
+    this->_begin = data;
+    this->_end = data + size;
+    this->_capacity = data + size;
+    
+    return *this;
 }
 
 template<class T, class Alloc>
@@ -144,7 +167,7 @@ int  Vector<T, Alloc>::capacity() const {
 }
 
 template<class T, class Alloc>
-T&      Vector<T, Alloc>::operator[] (int index) const {
+T&      Vector<T, Alloc>::operator[] ( int index ) const {
     return this->data[index];
 }
 
