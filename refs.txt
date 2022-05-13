@@ -12,13 +12,13 @@ classes will be in namespace ft
 Expected implementions for ft::Vector :
 
 Public Member functions:
-    (constructor)   //  Construct vector
-    (destructor)    //  Vector destructor
-    operator=   //  Assign content
+    (constructor)   //  Construct vector k
+    (destructor)    //  Vector destructor k
+    operator=   //  Assign content k
 
     Iterators:
-    begin   //  Return iterator to beginning
-    end //  Return iterator to end
+    begin   //  Return iterator to beginning k
+    end //  Return iterator to end k
     rbegin  //  Return reverse iterator to reverse beginning
     rend    //  Return reverse iterator to reverse end
 

@@ -63,6 +63,14 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "memory_resource": "cpp",
-        "__functional_03": "cpp"
+        "__functional_03": "cpp",
+        "clocale": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "deque": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "numbers": "cpp",
+        "ranges": "cpp"
     }
 }

@@ -7,6 +7,30 @@
 #include <memory>
 // #include <iterator>
 
+	// template <class T, class Alloc = std::allocator<T> >
+	// class vector
+	// {
+	// public:
+	// 	typedef T			value_type;
+	// 	typedef Alloc		allocator_type;
+	// 	typedef typename Alloc::reference	reference;
+	// 	typedef typename Alloc::const_reference	const_reference;
+	// 	typedef typename Alloc::pointer	pointer;
+	// 	typedef typename Alloc::const_pointer	const_pointer;
+	// 	typedef vector_iterator<pointer>	iterator;
+	// 	typedef vector_iterator<const_pointer>	const_iterator;
+	// 	typedef typename ft::reverse_iterator<iterator>	reverse_iterator;
+	// 	typedef typename ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+	// 	typedef std::ptrdiff_t	difference_type;
+	// 	typedef std::size_t	size_type;
+
+	// private:
+	// 	pointer _data;
+	// 	size_type _size;
+	// 	size_type _capacity;
+	// 	allocator_type _alloc;
+
+
 template < class T, class Alloc = std::allocator<T> >
 class Vector
 {
@@ -135,10 +159,11 @@ template<class T, class Alloc>
 
 template<class T, class Alloc>
 Vector<T, Alloc>&  Vector<T, Alloc>::operator=( const Vector& rhs ) {
-    // if (*this == rhs)
-    //     return *this;
+    if (this == &rhs)
+        return *this;
 
-    // alloc.deallocate(this->data, this->capacity());
+    if (this->capacity() > 0)
+        alloc.deallocate(this->data, this->capacity());
     int size = rhs.size();
     Vector<T, Alloc>::iterator first = rhs.begin();
     Vector<T, Alloc>::iterator last = rhs.end();
