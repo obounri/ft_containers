@@ -23,6 +23,7 @@ int main()
     f_iter = v5.begin();
     l_iter = v5.end();
 
+    // std::sort(f_iter, l_iter);
     // std::vector<char> c;
     
     // std::cout << "max size " << c.max_size() << " ulimit for int " << std::numeric_limits<char>::max() << "\n";
@@ -30,14 +31,18 @@ int main()
     // Vector<int>::reverse_iterator rf_iter;
     // Vector<int>::reverse_iterator rl_iter;
 
-    // rf_iter = v3.rbegin();
-    // rl_iter = v3.rend();
+    // rf_iter = v5.rbegin();
+    // rl_iter = v5.rend();
+
+
+    std::cout << "size " << v5.size() << " capacity " << v5.capacity() << " min " << *(std::min_element(f_iter, l_iter)) << " max " << *(std::max_element(f_iter, l_iter)) << std::endl;
 
     while (f_iter != l_iter)
     {
         std::cout << "iterator " << *f_iter << std::endl;
         ++f_iter;
     }
+
 
     return 0;
 }

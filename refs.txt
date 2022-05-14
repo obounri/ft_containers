@@ -19,8 +19,8 @@ Public Member functions:
     Iterators:
     begin   //  Return iterator to beginning k
     end //  Return iterator to end k
-    rbegin  //  Return reverse iterator to reverse beginning
-    rend    //  Return reverse iterator to reverse end
+    rbegin  //  Return reverse iterator to reverse beginning k
+    rend    //  Return reverse iterator to reverse end k
 
     Capacity:
     size    //  Return size
