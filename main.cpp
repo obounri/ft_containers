@@ -43,6 +43,5 @@ int main()
         ++f_iter;
     }
 
-
     return 0;
 }
