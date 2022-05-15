@@ -42,7 +42,7 @@ Public Member functions:
     reserve //  Request a change in capacity
 
     Element access:
-    operator[]  //  Access element
+    operator[]  //  Access element k
     at  //  Access element
     front   //  Access first element
     back    //  Access last element
