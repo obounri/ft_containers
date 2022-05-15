@@ -23,7 +23,7 @@ int main()
     f_iter = v5.begin();
     l_iter = v5.end();
 
-    // std::sort(f_iter, l_iter);
+    std::sort(f_iter, l_iter);
     // std::vector<char> c;
     
     // std::cout << "max size " << c.max_size() << " ulimit for int " << std::numeric_limits<char>::max() << "\n";

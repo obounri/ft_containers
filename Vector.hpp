@@ -11,24 +11,24 @@ template <class T, class Alloc = std::allocator<T> >
 class Vector
 {
 public:
-	typedef T			value_type;
-	typedef Alloc		allocator_type;
-	typedef typename Alloc::reference	reference;
-	typedef typename Alloc::const_reference	const_reference;
-	typedef typename Alloc::pointer	pointer;
-	typedef typename Alloc::const_pointer	const_pointer;
-	typedef vector_iterator<pointer>	iterator;
-	typedef vector_iterator<const_pointer>	const_iterator;
-	typedef reverse_iter<iterator>	reverse_iterator;
-	typedef reverse_iter<const_iterator>	const_reverse_iterator;
-	typedef std::ptrdiff_t	difference_type;
-	typedef std::size_t	size_type;
+	typedef T                                   value_type;
+	typedef Alloc                               allocator_type;
+	typedef typename Alloc::reference           reference;
+	typedef typename Alloc::const_reference     const_reference;
+	typedef typename Alloc::pointer             pointer;
+	typedef typename Alloc::const_pointer       const_pointer;
+	typedef vector_iterator<pointer>            iterator;
+	typedef vector_iterator<const_pointer>      const_iterator;
+	typedef reverse_iter<iterator>              reverse_iterator;
+	typedef reverse_iter<const_iterator>        const_reverse_iterator;
+	typedef std::ptrdiff_t                      difference_type;
+	typedef std::size_t                         size_type;
 
 private:
-	pointer _data;
-	size_type _size;
-	size_type _capacity;
-	allocator_type _alloc;
+	pointer         _data;
+	size_type       _size;
+	size_type       _capacity;
+	allocator_type  _alloc;
 
 public:
     Vector();
