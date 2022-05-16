@@ -36,10 +36,10 @@ Public Member functions:
     Capacity:
     size    //  Return size k
     max_size    //  Return maximum size k
-    resize  //  Change size k
+    resize  //  Change size
     capacity    //  Return size of allocated storage capacity k
     empty   //  Test whether vector is empty k
-    reserve //  Request a change in capacity 
+    reserve //  Request a change in capacity k
 
     Element access:
     operator[]  //  Access element k
