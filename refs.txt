@@ -35,11 +35,11 @@ Public Member functions:
 
     Capacity:
     size    //  Return size k
-    max_size    //  Return maximum size
-    resize  //  Change size
+    max_size    //  Return maximum size k
+    resize  //  Change size k
     capacity    //  Return size of allocated storage capacity k
-    empty   //  Test whether vector is empty
-    reserve //  Request a change in capacity
+    empty   //  Test whether vector is empty k
+    reserve //  Request a change in capacity 
 
     Element access:
     operator[]  //  Access element k
@@ -63,3 +63,8 @@ Non-member function overloads:
     relational operators    //  Relational operators for vector (function template )
     swap    //  Exchange contents of vectors (function template )
 
+a bit deeper into c++:
+destruction and built-in types: https://stackoverflow.com/questions/71010802/will-destructor-delete-built-in-types-and-pointer-objects
+allocator: http://candcplusplus.com/c-allocator-class-member-functions
+iterators and reallocation: https://stackoverflow.com/questions/36300745/how-do-iterators-update-after-vector-reallocation
+insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(), clear() invalidate iterators, references and pointers
