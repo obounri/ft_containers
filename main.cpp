@@ -8,6 +8,7 @@ int main()
 {
     Vector<int>    v1;
     Vector<int>    v2(8, 3);
+    
 
     int p [] = {16, 2, 77, 40, 12071};
     std::cout << "Range constructing v3 from int p [] = {16, 2, 77, 40, 12071} "; 
