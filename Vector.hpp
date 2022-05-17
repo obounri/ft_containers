@@ -39,20 +39,33 @@ public:
     Vector( T* first, T* last );
     Vector( const Vector& v );
     Vector&     operator=( const Vector& rhs );
-    reference   operator[] ( size_type index ) const ;
     ~Vector();
 
-    int size() const ;
-    size_type max_size() const;
-    int capacity() const ;
-
+    // iterators
     iterator begin() const { return iterator(_data); };
     iterator end() const { return iterator(_data + this->size()); };
     reverse_iterator rbegin() const { return reverse_iterator(_data + this->size() - 1); };
     reverse_iterator rend() const { return reverse_iterator(_data-1); };
 
+    // capacity
+    int size() const ;
+    size_type max_size() const;
+    int capacity() const ;
     bool empty() const;
     void reserve ( size_type n );
+
+    // element access
+    reference   operator[] ( size_type index ) const ;
+    reference at (size_type n);
+    const_reference at (size_type n) const;
+
+    // void swap(Vector &v)
+    // {
+    //     std::swap(this->_data, v._data);
+    //     std::swap(this->_size, v._size);
+    //     std::swap(this->_capacity, v._capacity);
+    //     std::swap(this->_alloc, v._alloc);
+    // }
 };
 
 template<class T, class Alloc>
@@ -181,5 +194,25 @@ template<class T, class Alloc>
 typename Vector<T, Alloc>::reference      Vector<T, Alloc>::operator[] ( size_type index ) const {
     return *(this->_data + index);
 }
+
+template<class T, class Alloc>
+typename Vector<T, Alloc>::reference      Vector<T, Alloc>::at (size_type n) {
+    if (n >= this->_size)
+        throw std::out_of_range("out_of_range");
+    return *(this->_data + n);
+}
+
+template<class T, class Alloc>
+typename Vector<T, Alloc>::const_reference      Vector<T, Alloc>::at (size_type n) const {
+    if (n >= this->_size)
+        throw std::out_of_range("out_of_range");
+    return *(this->_data + n);
+}
+
+// template <class T, class Alloc>
+// void swap(Vector<T, Alloc> &_x, Vector<T, Alloc> &_y)
+// {
+//     _x.swap(_y);
+// }
 
 #endif
