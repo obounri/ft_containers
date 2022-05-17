@@ -31,14 +31,21 @@ int main()
     std::vector<std::size_t> c;
     Vector<std::size_t> d;
     
-    
     std::cout << "std::vector<std::size_t> alloc max size " << c.max_size() << " ft::vector<std::size_t> max size " << d.max_size() << "\n\n";
 
-    // Vector<int>::reverse_iterator rf_iter;
-    // Vector<int>::reverse_iterator rl_iter;
+    Vector<int>::reverse_iterator rf_iter;
+    Vector<int>::reverse_iterator rl_iter;
 
-    // rf_iter = v5.rbegin();
-    // rl_iter = v5.rend();
+    rf_iter = v5.rbegin();
+    rl_iter = v5.rend();
+
+    std::cout << "iterating using reverse_iterators, deferencing them to get value >>" << '\n';
+    while (rf_iter != rl_iter)
+    {
+        std::cout << *rf_iter << " ";
+        ++rf_iter;
+    }
+    std::cout << std::endl << std::endl;
 
     std::cout << "v5.size() " << v5.size() << " v5.capacity() " << v5.capacity() << " v5.min() " << *(std::min_element(f_iter, l_iter)) << " v5.max() " << *(std::max_element(f_iter, l_iter)) << std::endl;
     try
