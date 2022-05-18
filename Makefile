@@ -1,12 +1,12 @@
 include .env
 
-# If the first argument is "run"...
-ifeq (push,$(firstword $(MAKECMDGOALS)))
-  # use the rest as arguments for "run"
-  ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  # ...and turn them into do-nothing targets
-  $(eval $(ARGS):;@:)
-endif
+# # If the first argument is "run"...
+# ifeq (push,$(firstword $(MAKECMDGOALS)))
+#   # use the rest as arguments for "run"
+#   ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+#   # ...and turn them into do-nothing targets
+#   $(eval $(ARGS):;@:)
+# endif
 
 CC = c++
 
@@ -30,7 +30,7 @@ debug : $(D_NAME)
 
 push:
 	@git add -A
-	@git commit -m "$(ARGS)"
+	@git commit -m "$(msg)"
 	@git push -u https://obounri:$(GIT_KEY)@github.com/obounri/ft_containers.git master 
 
 # %.o:%.cpp
