@@ -5,7 +5,7 @@ ifeq (push,$(firstword $(MAKECMDGOALS)))
   # use the rest as arguments for "run"
   ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
   # ...and turn them into do-nothing targets
-  $(push $(ARGS):;@:)
+  $(eval $(ARGS):;@:)
 endif
 
 CC = c++
