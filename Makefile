@@ -31,7 +31,7 @@ debug : $(D_NAME)
 push:
 	@git add -A
 	@git commit -m "$(ARGS)"
-	git push -u https://obounri:$(GIT_KEY)@github.com/obounri/ft_containers.git master 
+	@git push -u https://obounri:$(GIT_KEY)@github.com/obounri/ft_containers.git master 
 
 # %.o:%.cpp
 # 	$(CC) $(CFLAGS)  -c $< -o $@
