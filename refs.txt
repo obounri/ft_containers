@@ -36,16 +36,16 @@ Public Member functions:
     Capacity:
     size    //  Return size k
     max_size    //  Return maximum size k
-    resize  //  Change size
+    resize  //  Change size k
     capacity    //  Return size of allocated storage capacity k
     empty   //  Test whether vector is empty k
     reserve //  Request a change in capacity k
 
-    Element access:
-    operator[] // does not check bounds  //  Access element k
-    at // checks bounds //  Access element
-    front   //  Access first element
-    back    //  Access last element
+    Element access: non-const all k, const ?
+    operator[] // does not check bounds 
+    at // checks bounds 
+    front   //  Access first element // Calling this function on an empty container causes undefined behavior.
+    back    //  Access last element // Calling this function on an empty container causes undefined behavior.
 
     Modifiers:
     assign  //  Assign vector content

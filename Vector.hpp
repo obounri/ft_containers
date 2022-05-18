@@ -48,16 +48,21 @@ public:
     reverse_iterator rend() const { return reverse_iterator(_data-1); };
 
     // capacity
-    int size() const ;
+    size_type size() const ;
     size_type max_size() const;
-    int capacity() const ;
+    void resize (size_type n, value_type val = value_type());
+    size_type capacity() const ;
     bool empty() const;
     void reserve ( size_type n );
 
     // element access
     reference   operator[] ( size_type index ) const ;
     reference at (size_type n);
-    const_reference at (size_type n) const;
+    // const_reference at (size_type n) const; // how to know if vector object is const qualified
+    reference front();
+    // const_reference front() const;
+    reference back();
+    // const_reference back() const;
 
     // void swap(Vector &v)
     // {
@@ -132,7 +137,7 @@ Vector<T, Alloc>&  Vector<T, Alloc>::operator=( const Vector& rhs ) {
     if (this->_capacity > 0)
         _alloc.deallocate(this->_data, this->_capacity);
     this->_data = _alloc.allocate(rhs.capacity());
-    int i = 0;
+    size_type i = 0;
     while (i < rhs.size()) {
         _alloc.construct(_data+i, rhs[i]);
         i++;
@@ -144,12 +149,12 @@ Vector<T, Alloc>&  Vector<T, Alloc>::operator=( const Vector& rhs ) {
 }
 
 template<class T, class Alloc>
-int  Vector<T, Alloc>::size() const {
+typename Vector<T, Alloc>::size_type  Vector<T, Alloc>::size() const {
     return this->_size;
 }
 
 template<class T, class Alloc>
-int  Vector<T, Alloc>::capacity() const {
+typename Vector<T, Alloc>::size_type  Vector<T, Alloc>::capacity() const {
     return this->_capacity;
 }
 
@@ -203,11 +208,37 @@ typename Vector<T, Alloc>::reference      Vector<T, Alloc>::at (size_type n) {
 }
 
 template<class T, class Alloc>
-typename Vector<T, Alloc>::const_reference      Vector<T, Alloc>::at (size_type n) const {
-    if (n >= this->_size)
-        throw std::out_of_range("out_of_range");
-    return *(this->_data + n);
+typename Vector<T, Alloc>::reference      Vector<T, Alloc>::front () {
+    return *(this->_data);
 }
+
+template<class T, class Alloc>
+typename Vector<T, Alloc>::reference      Vector<T, Alloc>::back () {
+    return *(this->_data + this->_size - 1);
+}
+
+template<class T, class Alloc>
+void Vector<T, Alloc>::resize (size_type n, value_type val) {
+    if (n < this->_size) {
+        for (size_type i = n; i < this->_size; i++) {
+            _alloc.destroy(this->_data + i);
+        }
+        this->_size = n;
+    }
+    else if (n > this->_size) {
+        this->reserve(n);
+        for (; this->_size < n; this->_size++)
+            _alloc.construct(this->_data+this->_size, val);
+    }
+}
+
+
+// template<class T, class Alloc>
+// typename Vector<T, Alloc>::const_reference      Vector<T, Alloc>::at (size_type n) const {
+//     if (n >= this->_size)
+//         throw std::out_of_range("out_of_range");
+//     return *(this->_data + n);
+// }
 
 // template <class T, class Alloc>
 // void swap(Vector<T, Alloc> &_x, Vector<T, Alloc> &_y)

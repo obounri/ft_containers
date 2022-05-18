@@ -8,7 +8,6 @@ int main()
 {
     Vector<int>    v1;
     Vector<int>    v2(8, 3);
-    
 
     int p [] = {16, 2, 77, 40, 12071};
     std::cout << "Range constructing v3 from int p [] = {16, 2, 77, 40, 12071} "; 
@@ -72,7 +71,18 @@ int main()
         std::cout << *f_iter << " ";
         ++f_iter;
     }
+    std::cout << std::endl << std::endl;
+    
+    std::cout << "v5.resize(10, 9), accessing through operator[] >>" << '\n';
+    v5.resize(10, 9);
+    for (size_t i = 0; i < v5.size(); i++)
+    {
+        std::cout << v5[i] << " ";
+    }
     std::cout << std::endl;
+    f_iter = v5.begin();
+    l_iter = v5.end();
+    std::cout << "v5.size() " << v5.size() << " v5.capacity() " << v5.capacity() << " v5.min() " << *(std::min_element(f_iter, l_iter)) << " v5.max() " << *(std::max_element(f_iter, l_iter)) << std::endl << std::endl;
 
     std::cout << "-------------------------------------------------------------------" << std::endl;
     

@@ -1,3 +1,13 @@
+include .env
+
+# If the first argument is "run"...
+ifeq (push,$(firstword $(MAKECMDGOALS)))
+  # use the rest as arguments for "run"
+  ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  # ...and turn them into do-nothing targets
+  $(eval $(ARGS):;@:)
+endif
+
 CC = c++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -14,9 +24,14 @@ D_NAME = dbug
 D_SRC_FILE =  dbug.cpp
 # D_OBJ_FILE = $(D_SRC_FILE:.cpp=.o)
 
-test : $(NAME)
+all : $(NAME)
 
 debug : $(D_NAME)
+
+push:
+	git add -A
+	git commit -m "$(ARGS)"
+	http://obounri:$(GIT_KEY)@github.com/obounri/ft_containers.git
 
 # %.o:%.cpp
 # 	$(CC) $(CFLAGS)  -c $< -o $@
