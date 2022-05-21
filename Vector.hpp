@@ -1,7 +1,6 @@
 #ifndef Vector_HPP
 #define Vector_HPP
 
-
 #include <string>
 #include <exception>
 #include <iostream>
@@ -26,10 +25,6 @@ public:
 	typedef std::size_t                         size_type;
 	typedef typename Alloc::pointer             InputIterator;
 
-
-    // std::bad_alloc                              _bad_alloc;
-    // std::length_error                           _length_error;
-
 private:
 	pointer         _data;
 	size_type       _size;
@@ -43,6 +38,7 @@ public:
         this->_capacity = 0;
         this->_alloc = alloc;
     };
+
     Vector( size_type n, const value_type& val = value_type(),
                  const allocator_type& alloc = allocator_type() ) {
         this->_alloc = alloc;
@@ -55,14 +51,14 @@ public:
 
     Vector( InputIterator first, InputIterator last,
                  const allocator_type& alloc = allocator_type() ) {
-    size_type size = last - first;
-    this->_alloc = alloc;
-    this->_data = _alloc.allocate(size);
-    size_type i = 0;
-    while (first != last) {
-        _alloc.construct(_data+i, *first);
-        i++;
-        first++;
+        size_type size = last - first;
+        this->_alloc = alloc;
+        this->_data = _alloc.allocate(size);
+        size_type i = 0;
+        while (first != last) {
+            _alloc.construct(_data+i, *first);
+            i++;
+            first++;
     }
     this->_size = size;
     this->_capacity = size;
@@ -81,6 +77,7 @@ public:
         this->_size = size;
         this->_capacity = capacity;
     };
+
     Vector&     operator=( const Vector& rhs );
     ~Vector();
 
@@ -107,33 +104,28 @@ public:
     reference back();
     // const_reference back() const;
 
-    void assign(size_type n, const value_type &val)
-    {
+    void assign(size_type n, const value_type &val) {
         Vector tmp(n , val);
         *this = tmp;
     }
 
-    void assign( InputIterator first, InputIterator last )
-    {
+    void assign( InputIterator first, InputIterator last ) {
         Vector tmp(first, last);
         *this = tmp;
     }
 
-    void push_back(const value_type &val)
-    {
+    void push_back(const value_type &val) {
         this->reserve(this->_size + 1);
         _alloc.construct(&this->_data[this->_size], val);
         this->_size++;
     }
 
-    void pop_back()
-    {
+    void pop_back() {
         this->_alloc.destroy(&this->_data[this->_size - 1]);
         this->_size--;
     }
 
-    iterator insert(iterator position, const value_type &val)
-    {
+    iterator insert(iterator position, const value_type &val) {
         // std::cout << "normal insert" << std::endl;
         difference_type index = position - begin();
         if (index < 0)
@@ -153,8 +145,7 @@ public:
         return (iterator(this->_data + index));
     }
 
-    void insert(iterator position, size_type n, const value_type &val)
-    {
+    void insert(iterator position, size_type n, const value_type &val) {
         if (n <= 0)
             return;
         difference_type index = position - begin();
@@ -202,8 +193,7 @@ public:
     //     }
     // }
 
-    iterator erase(iterator position)
-    {
+    iterator erase(iterator position) {
         difference_type index = position - begin();
         if (index < 0)
             throw std::out_of_range("out_of_range");
@@ -219,8 +209,7 @@ public:
         return (iterator(this->_data + index));
     }
 
-    iterator erase(iterator first, iterator last)
-    {
+    iterator erase(iterator first, iterator last) {
         difference_type index = first - begin();
         if ((last - first) <= 0)
             throw std::out_of_range("out_of_range");
@@ -242,16 +231,14 @@ public:
         return (iterator(this->_data + index));
     }
 
-    void swap(Vector &v)
-    {
+    void swap(Vector &v) {
         std::swap(this->_data, v._data);
         std::swap(this->_size, v._size);
         std::swap(this->_capacity, v._capacity);
         std::swap(this->_alloc, v._alloc);
     }
 
-    void clear()
-    {
+    void clear() {
         if (!this->empty())
         {
             for (size_type i = 0; i < this->size(); i++)
