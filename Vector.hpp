@@ -23,6 +23,8 @@ public:
 	typedef reverse_iter<const_iterator>        const_reverse_iterator;
 	typedef std::ptrdiff_t                      difference_type;
 	typedef std::size_t                         size_type;
+	typedef typename Alloc::pointer             InputIterator;
+
 
     // std::bad_alloc                              _bad_alloc;
     // std::length_error                           _length_error;
@@ -34,14 +36,28 @@ private:
 	allocator_type  _alloc;
 
 public:
-    Vector();
-    Vector( int n, T val );
+    Vector( const allocator_type& alloc = allocator_type() )  {
+        this->_data = 0;
+        this->_size = 0;
+        this->_capacity = 0;
+        this->_alloc = alloc;
+    };
+    Vector( size_type n, const value_type& val = value_type(),
+                 const allocator_type& alloc = allocator_type() ) {
+        this->_alloc = alloc;
+        this->_data = _alloc.allocate(n);
+        for (size_type i = 0; i < n; i++)
+            _alloc.construct(_data+i, val);
+        this->_size = n;
+        this->_capacity = n;
+    };
 
-    template <class InputIterator>
-    Vector( InputIterator first, InputIterator last ) {
-    int size = last - first;
+    Vector( InputIterator first, InputIterator last,
+                 const allocator_type& alloc = allocator_type() ) {
+    size_type size = last - first;
+    this->_alloc = alloc;
     this->_data = _alloc.allocate(size);
-    int i = 0;
+    size_type i = 0;
     while (first != last) {
         _alloc.construct(_data+i, *first);
         i++;
@@ -51,7 +67,19 @@ public:
     this->_capacity = size;
     }
 
-    Vector( const Vector& v );
+    Vector( const Vector& v ) {
+        size_type size = v.size();
+        size_type capacity = v.capacity();
+        this->_alloc = v.get_allocator();
+        this->_data = _alloc.allocate(capacity);
+        size_type i = 0;
+        while (i < size) {
+            _alloc.construct(_data+i, v[i]);
+            i++;
+        }
+        this->_size = size;
+        this->_capacity = capacity;
+    };
     Vector&     operator=( const Vector& rhs );
     ~Vector();
 
@@ -80,32 +108,21 @@ public:
 
     void assign(size_type n, const value_type &val)
     {
-        if (n <= 0)
-            return ;
-        this->reserve(n);
-        this->_size = n;
-        for (size_type i = 0; i < n; ++i)
-            this->_alloc.construct(&this->_data[i], val);
+        Vector tmp(n , val);
+        *this = tmp;
     }
 
-    // template <class InputIterator>
-    // void assign(InputIterator first, InputIterator last,
-    //             typename enable_if<!is_integral<InputIterator>::value, bool>::type = true)
-    // {
-    //     difference_type len = last - first;
-    //     if (len <= 0)
-    //         return ;
-    //     this->reserve(len);
-    //     this->_size = len;
-    //     size_type i = 0;
-    //     for (InputIterator it = first; it != last; ++it)
-    //         this->_alloc.construct(&this->_data[i++], *it);
-    // }
+    void assign( InputIterator first, InputIterator last )
+    {
+        Vector tmp(first, last);
+        *this = tmp;
+    }
 
     void push_back(const value_type &val)
     {
         this->reserve(this->_size + 1);
-        this->_alloc.construct(&this->_data[this->_size++], val);
+        _alloc.construct(&this->_data[this->_size], val);
+        this->_size++;
     }
 
     void pop_back()
@@ -248,36 +265,6 @@ public:
 };
 
 template<class T, class Alloc>
-Vector<T, Alloc>::Vector() {
-    this->_data = 0;
-    this->_size = 0;
-    this->_capacity = 0;
-}
-
-template<class T, class Alloc>
-Vector<T, Alloc>::Vector( int n, T val ) {
-    this->_data = _alloc.allocate(n);
-    for (int i = 0; i < n; i++)
-        _alloc.construct(_data+i, val);
-    this->_size = n;
-    this->_capacity = n;
-}
-
-template<class T, class Alloc>
-Vector<T, Alloc>::Vector( const Vector& v ) {
-    int size = v.size();
-    int capacity = v.capacity();
-    this->_data = _alloc.allocate(capacity);
-    int i = 0;
-    while (i < size) {
-        _alloc.construct(_data+i, v[i]);
-        i++;
-    }
-    this->_size = size;
-    this->_capacity = capacity;
-}
-
-template<class T, class Alloc>
 Vector<T, Alloc>::~Vector() {
     if (this->_size > 0)
         for (Vector<T, Alloc>::size_type i = 0; i < this->_size; i++)
@@ -291,19 +278,23 @@ Vector<T, Alloc>&  Vector<T, Alloc>::operator=( const Vector& rhs ) {
     if (this == &rhs)
         return *this;
 
-    if (this->_size > 0)
+    if (this->_size > 0) {
         for (Vector<T, Alloc>::size_type i = 0; i < this->_size; i++)
             _alloc.destroy(this->_data+i);
-    if (this->_capacity > 0)
-        _alloc.deallocate(this->_data, this->_capacity);
-    this->_data = _alloc.allocate(rhs.capacity());
+        if (rhs.size() > this->_capacity) {
+            _alloc.deallocate(this->_data, this->_capacity);
+        }
+    }
+    if (this->_size == 0 || rhs.size() > this->_capacity) {
+        this->_data = _alloc.allocate(rhs.capacity());
+        this->_capacity = rhs.capacity();
+    }
     size_type i = 0;
     while (i < rhs.size()) {
         _alloc.construct(_data+i, rhs[i]);
         i++;
     }
     this->_size = rhs.size();
-    this->_capacity = rhs.capacity();
     
     return *this;
 }
