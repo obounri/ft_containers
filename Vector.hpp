@@ -1,6 +1,7 @@
 #ifndef Vector_HPP
 #define Vector_HPP
 
+
 #include <string>
 #include <exception>
 #include <iostream>
