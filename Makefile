@@ -6,7 +6,8 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 HEADER = iterator_traits.hpp \
 		iterator.hpp \
-		Vector.hpp
+		Vector.hpp \
+		stack.hpp
 
 NAME = containers
 SRC_FILE =  main.cpp
