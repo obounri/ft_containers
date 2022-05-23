@@ -59,9 +59,9 @@ public:
             _alloc.construct(_data+i, *first);
             i++;
             first++;
-    }
-    this->_size = size;
-    this->_capacity = size;
+        }
+        this->_size = size;
+        this->_capacity = size;
     }
 
     Vector( const Vector& v ) {
@@ -126,17 +126,14 @@ public:
     }
 
     iterator insert(iterator position, const value_type &val) {
-        // std::cout << "normal insert" << std::endl;
         difference_type index = position - begin();
         if (index < 0)
             throw std::out_of_range("out_of_range");
         this->reserve(this->_size + 1);
         this->_size += 1;
         difference_type i = size();
-        while (--i >= 0)
-        {
-            if (i == index)
-            {
+        while (--i >= 0) {
+            if (i == index) {
                 this->_alloc.construct(&this->_data[i], val);
                 break;
             }
@@ -154,44 +151,41 @@ public:
         this->reserve(size() + n);
         this->_size += n;
         difference_type i = size();
-        while (--i >= 0)
-        {
-            if (i == (index + (difference_type)n) - 1)
-            {
+        while (--i >= 0) {
+            if (i == (index + (difference_type)n) - 1) {
                 _alloc.construct(&this->_data[i], val);
                 n--;
             }
             else
                 _alloc.construct(&this->_data[i], this->_data[i - n]);
             if (i == index)
-                break;
+                break ;
         }
     }
 
-    // template <class InputIterator>
-    // void insert(iterator position, InputIterator first, InputIterator last,
-    //             typename enable_if<!is_integral<InputIterator>::value, bool>::type = true)
-    // {
-    //     difference_type index = position - begin();
-    //     difference_type len = last - first;
-    //     if (len <= 0)
-    //         return;
-    //     this->reserve(size() + len);
-    //     this->_size += len;
-    //     difference_type i = size();
-    //     while (--i >= 0)
-    //     {
-    //         if (i == index + len - 1)
-    //         {
-    //             _alloc.construct(&_data[i], *--last);
-    //             len--;
-    //         }
-    //         else
-    //             _alloc.construct(&_data[i], _data[i - len]);
-    //         if (i == index)
-    //             break;
-    //     }
-    // }
+    template <class InputIterator>
+    void insert(iterator position, InputIterator first, InputIterator last)
+    {
+        difference_type index = position - begin();
+        difference_type len = last - first;
+        if (len <= 0)
+            return;
+        this->reserve(size() + len);
+        this->_size += len;
+        difference_type i = size();
+        while (--i >= 0)
+        {
+            if (i == index + len - 1)
+            {
+                _alloc.construct(&_data[i], *--last);
+                len--;
+            }
+            else
+                _alloc.construct(&_data[i], _data[i - len]);
+            if (i == index)
+                break;
+        }
+    }
 
     iterator erase(iterator position) {
         difference_type index = position - begin();
