@@ -3,6 +3,7 @@
 
 #include "iterator.hpp"
 #include "pair.hpp"
+#include "BST.hpp"
 
 #include <functional>
 #include <memory>
@@ -19,7 +20,7 @@ class map
         typedef T                                   mapped_type;
         typedef pair<const key_type, mapped_type>   value_type;
         typedef Compare                             key_compare;
-        // value_compare
+        typedef class                               value_compare;
         typedef Alloc                               allocator_type;
         typedef typename Alloc::reference           reference;
         typedef typename Alloc::const_reference     const_reference;
@@ -31,24 +32,24 @@ class map
         typedef reverse_iter<const_iterator>        const_reverse_iterator;
         typedef std::ptrdiff_t                      difference_type;
 	    typedef std::size_t                         size_type;
-        typedef class                               value_compare;
+	
+	private:
+		BST<key_type, mapped_type> *root, tree;
 };
 
 template <class Key, class T, class Compare, class Alloc>
-class map<Key,T,Compare,Alloc>::value_compare
-{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+class map<Key,T,Compare,Alloc>::value_compare: public binary_function<value_type,value_type,bool> {
   friend class map;
-protected:
-  Compare comp;
-  value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
-public:
-  typedef bool result_type;
-  typedef value_type first_argument_type;
-  typedef value_type second_argument_type;
-  bool operator() (const value_type& x, const value_type& y) const
-  {
-    return comp(x.first, y.first);
-  }
+  protected:
+    Compare comp;
+    value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+  public:
+    typedef bool result_type;
+    typedef value_type first_argument_type;
+    typedef value_type second_argument_type;
+    bool operator() (const value_type& x, const value_type& y) const {
+      return comp(x.first, y.first);
+    }
 };
 
 #endif

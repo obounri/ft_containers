@@ -22,17 +22,19 @@ int main()
     // }
     // std::cout << "is empty ? " << s.empty() << " size " << s.size() << " top " << s.top() << std::endl;
   
-    pair<int, int> a(0, 0);
-    pair<int, int> b(3, 3);
-    pair<int, int> c(2, 2);
-    pair<int, int> d(1, 1);
+    pair<std::string, int> a("oth", 0);
+    pair<std::string, int> b("ism", 3);
+    pair<std::string, int> c("kha", 2);
+    pair<std::string, int> d("raq", 1);
+    pair<std::string, int> e("rao", 1);
 
-    BST<int, int> *root = NULL, tree;
+    BST<std::string, int> *root = NULL, tree;
 
     root = tree.insert(root, a);
     tree.insert(root, b);
     tree.insert(root, c);
     tree.insert(root, d);
+    tree.insert(root, e);
 
     tree.traversal(root);
 
