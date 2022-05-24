@@ -21,7 +21,7 @@ int main()
     // }
     // std::cout << "is empty ? " << s.empty() << " size " << s.size() << " top " << s.top() << std::endl;
   
-    pair<std::string, int> p; 
+    pair<std::string, int> p("key", 1); 
     
 
     std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
