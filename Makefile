@@ -2,7 +2,7 @@ include .env
 
 CC = c++
 
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+# CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 HEADER = iterator_traits.hpp \
 		iterator.hpp \

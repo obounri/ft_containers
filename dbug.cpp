@@ -21,8 +21,23 @@ int main()
     // }
     // std::cout << "is empty ? " << s.empty() << " size " << s.size() << " top " << s.top() << std::endl;
   
-    pair<std::string, int> p("key", 1); 
+    pair<std::string, int> o("key", 1);
+    pair<std::string, int> l(o);
+    pair<std::string, int> p;
+
+    p = l;
+
+    if (p == l)
+        std::cout << "equal" << "\n";
+
+    p.first = "dd";
+
+    if (p == l)
+        std::cout << "equal" << "\n";
+    else
+        std::cout << "not equal" << "\n";
     
+    std::cout << p.first << " " << p.second << std::endl;
 
     std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
     
