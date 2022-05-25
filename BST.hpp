@@ -4,6 +4,7 @@
 #include <iostream>
 #include "pair.hpp"
 
+// template <class T1, class T2, class Compare>
 template <class T1, class T2>
 class BST {
     public:
