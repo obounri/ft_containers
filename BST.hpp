@@ -4,8 +4,7 @@
 #include <iostream>
 #include "pair.hpp"
 
-// template <class T1, class T2, class Compare>
-template <class T1, class T2>
+template <class T1, class T2, class Compare, class Alloc>
 class BST {
     public:
         typedef pair<T1, T2> _pair;
@@ -15,12 +14,19 @@ class BST {
     private:
         _pair   data;
         BST     *left, *right;
+        Alloc   _alloc;
+        Compare _comp;
  
 public:
     BST(): data(), left(NULL), right(NULL) {} ;
  
-    BST(first_type f , second_type s) { data.first = f; data.second = s; left = NULL; right = NULL; } ;
-    BST(_pair p) { data.first = p.first; data.second = p.second; left = NULL; right = NULL; } ;
+    BST(first_type f , second_type s, 
+        Compare comp = Compare(), Alloc alloc = Alloc()) { 
+            data.first = f; data.second = s; left = NULL; right = NULL; 
+            _alloc = alloc; _comp = comp; } ;
+    BST(_pair p, Compare comp = Compare(), Alloc alloc = Alloc()) {
+        data.first = p.first; data.second = p.second; left = NULL; right = NULL; 
+        _alloc = alloc; _comp = comp; } ;
  
     BST* insert(BST* root, first_type f, second_type s) {
         if (!root)
@@ -54,5 +60,6 @@ public:
         traversal(root->right);
     };
 };
+
 
 #endif

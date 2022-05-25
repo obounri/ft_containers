@@ -15,23 +15,23 @@ template <class Key,
 class map
 {
 	public:
-		typedef Key											key_type;
-		typedef T 											mapped_type;
-		typedef pair<const key_type, mapped_type> 			value_type;
-		typedef Compare 									a;
-		class 												value_compare;
-		typedef Alloc 										allocator_type;
-		typedef typename allocator_type::reference 			reference;
-		typedef typename allocator_type::const_reference 	const_reference;
-		typedef typename allocator_type::pointer 			pointer;
-		typedef typename allocator_type::const_pointer 		const_pointer;
-		typedef vector_iterator<pointer> 					iterator;
-		typedef vector_iterator<const_pointer>				const_iterator;
-		typedef reverse_iter<iterator> 						reverse_iterator;
-		typedef reverse_iter<const_iterator> 				const_reverse_iterator;
-		typedef std::ptrdiff_t 								difference_type;
-		typedef std::size_t 								size_type;
-		typedef BST<key_type, mapped_type> 					bst;
+		typedef Key															key_type;
+		typedef T 															mapped_type;
+		typedef pair<const key_type, mapped_type> 							value_type;
+		typedef Compare 													key_compare;
+		class 																value_compare;
+		typedef Alloc 														allocator_type;
+		typedef typename allocator_type::reference 							reference;
+		typedef typename allocator_type::const_reference 					const_reference;
+		typedef typename allocator_type::pointer 							pointer;
+		typedef typename allocator_type::const_pointer 						const_pointer;
+		typedef vector_iterator<pointer> 									iterator;
+		typedef vector_iterator<const_pointer>								const_iterator;
+		typedef reverse_iter<iterator> 										reverse_iterator;
+		typedef reverse_iter<const_iterator> 								const_reverse_iterator;
+		typedef std::ptrdiff_t 												difference_type;
+		typedef std::size_t 												size_type;
+		typedef BST<key_type, mapped_type, key_compare, allocator_type>		bst;
 
 	private:
 		bst				*_root, _tree;
