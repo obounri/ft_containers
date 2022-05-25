@@ -42,7 +42,7 @@ class map
 	public:
 		explicit map (const key_compare& comp = key_compare(),
               const allocator_type& alloc = allocator_type()) {
-				_root = NULL;
+				_root->data = NULL;
 				_alloc = alloc;
 				_comp = comp;
 				_size = 0;

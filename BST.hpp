@@ -12,27 +12,31 @@ class BST {
         typedef T2  second_type;
     
     private:
-        _pair   data;
+        _pair   *data;
         BST     *left, *right;
         Alloc   _alloc;
         Compare _comp;
  
 public:
-    BST(): data(), left(NULL), right(NULL) {} ;
+    BST(): data(NULL), left(NULL), right(NULL) {} ;
  
     BST(first_type f , second_type s, 
         Compare comp = Compare(), Alloc alloc = Alloc()) { 
-            data.first = f; data.second = s; left = NULL; right = NULL; 
+            data->first = f; data->second = s; left = NULL; right = NULL; 
             _alloc = alloc; _comp = comp; } ;
     BST(_pair p, Compare comp = Compare(), Alloc alloc = Alloc()) {
-        data.first = p.first; data.second = p.second; left = NULL; right = NULL; 
+        data->first = p.first; data->second = p.second; left = NULL; right = NULL; 
         _alloc = alloc; _comp = comp; } ;
  
     BST* insert(BST* root, first_type f, second_type s) {
-        if (!root)
-            return new BST(f, s);
+        if (!root->data) {
+            // root = new BST(f, s);
+            // root->data = _alloc.allocate(1);
+            // _alloc.construct(root->data, _pair(f, s));
+            return root;
+        }
 
-        if (f > root->data.first)
+        if (f > root->data->first)
             root->right = insert(root->right, f, s);
         else
             root->left = insert(root->left, f, s);
@@ -41,10 +45,10 @@ public:
     };
 
     BST* insert(BST* root, _pair p) {
-        if (!root)
+        if (!root->data) {
             return new BST(p);
 
-        if (p.first > root->data.first)
+        if (p.first > root->data->first)
             root->right = insert(root->right, p);
         else
             root->left = insert(root->left, p);
@@ -56,7 +60,7 @@ public:
         if (!root)
             return ;
         traversal(root->left);
-        std::cout << root->data.first << "=" << root->data.second << std::endl;
+        std::cout << root->data->first << "=" << root->data->second << std::endl;
         traversal(root->right);
     };
 };
