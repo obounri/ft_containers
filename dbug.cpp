@@ -8,6 +8,7 @@
 #include "pair.hpp"
 // #include "BST.hpp"
 #include "map.hpp"
+#include <memory>
 
 int main()
 {
@@ -31,6 +32,8 @@ int main()
     pair<std::string, int> d("raq", 1);
     pair<std::string, int> e("rao", 1);
 
+    // std::allocator<pair<std::string, int> >::
+
     v.push_back(a);
     v.push_back(b);
     v.push_back(c);
@@ -43,6 +46,10 @@ int main()
     map<std::string, int> m(ib, ie);
     
     m.debug();
+
+    
+    map<std::string, int> n;
+    n.debug();
     // BST<std::string, int> *root = NULL, tree;
 
     // root = tree.insert(root, a);

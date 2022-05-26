@@ -42,7 +42,7 @@ class map
 	public:
 		explicit map (const key_compare& comp = key_compare(),
               const allocator_type& alloc = allocator_type()) {
-				_root->data = NULL;
+				_root = NULL;
 				_alloc = alloc;
 				_comp = comp;
 				_size = 0;
@@ -53,7 +53,7 @@ class map
 			const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type()) {
 				for (; first != last; first++) {
-					_root = _tree.insert(_root, *first);
+					_root = _tree.insert(_root, (*first).first, (*first).second);
 				}
 				_alloc = alloc;
 				_comp = comp;

@@ -10,48 +10,42 @@ class BST {
         typedef pair<T1, T2> _pair;
         typedef T1  first_type;
         typedef T2  second_type;
+		typedef Compare 						key_compare;
+		typedef Alloc 							allocator_type;
+        typedef typename allocator_type::template rebind<BST>::other bst_allocator;
     
     private:
-        _pair   *data;
-        BST     *left, *right;
-        Alloc   _alloc;
-        Compare _comp;
+        _pair           data;
+        BST             *left, *right;
+        bst_allocator   _bst_alloc;
+        key_compare     _comp;
  
 public:
-    BST(): data(NULL), left(NULL), right(NULL) {} ;
+    BST( const key_compare& comp = key_compare(), 
+        const bst_allocator& bst_alloc = bst_allocator() 
+            ): left(NULL), right(NULL), _bst_alloc(bst_alloc), _comp(comp) {} ;
  
-    BST(first_type f , second_type s, 
-        Compare comp = Compare(), Alloc alloc = Alloc()) { 
-            data->first = f; data->second = s; left = NULL; right = NULL; 
-            _alloc = alloc; _comp = comp; } ;
-    BST(_pair p, Compare comp = Compare(), Alloc alloc = Alloc()) {
-        data->first = p.first; data->second = p.second; left = NULL; right = NULL; 
-        _alloc = alloc; _comp = comp; } ;
- 
-    BST* insert(BST* root, first_type f, second_type s) {
-        if (!root->data) {
-            // root = new BST(f, s);
-            // root->data = _alloc.allocate(1);
-            // _alloc.construct(root->data, _pair(f, s));
+    BST( first_type f, second_type s, const key_compare& comp = key_compare(), 
+        const bst_allocator& alloc = bst_allocator() ) { 
+            data.first = f;
+            data.second = s;
+            left = NULL;
+            right = NULL;
+            _bst_alloc = alloc;
+            _comp = comp;
+        } ;
+
+    BST* insert(BST* root, const first_type f, const second_type s) {
+        if (!root) {
+            root = _bst_alloc.allocate(1);
+            _bst_alloc.construct(root, BST(f, s));
             return root;
         }
 
-        if (f > root->data->first)
+        if (f > root->data.first)
             root->right = insert(root->right, f, s);
         else
             root->left = insert(root->left, f, s);
-
-        return root;
-    };
-
-    BST* insert(BST* root, _pair p) {
-        if (!root->data) {
-            return new BST(p);
-
-        if (p.first > root->data->first)
-            root->right = insert(root->right, p);
-        else
-            root->left = insert(root->left, p);
 
         return root;
     };
@@ -60,7 +54,7 @@ public:
         if (!root)
             return ;
         traversal(root->left);
-        std::cout << root->data->first << "=" << root->data->second << std::endl;
+        std::cout << root->data.first << "=" << root->data.second << std::endl;
         traversal(root->right);
     };
 };
