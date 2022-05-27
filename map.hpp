@@ -60,6 +60,10 @@ class map
 				_size = last - first;
 			};
 		
+		// map (const map& x) {
+
+		// } ;
+		
 		void debug() {
 			_tree.traversal(_root);
 		}

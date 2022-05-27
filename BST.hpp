@@ -10,9 +10,9 @@ class BST {
         typedef pair<T1, T2> _pair;
         typedef T1  first_type;
         typedef T2  second_type;
-		typedef Compare 						key_compare;
-		typedef Alloc 							allocator_type;
-        typedef typename allocator_type::template rebind<BST>::other bst_allocator;
+		typedef Compare 						                        key_compare;
+		typedef Alloc 							                        allocator_type;
+        typedef typename allocator_type::template rebind<BST>::other    bst_allocator;
     
     private:
         _pair           data;
@@ -42,10 +42,10 @@ public:
             return root;
         }
 
-        if (f > root->data.first)
-            root->right = insert(root->right, f, s);
-        else
+        if (_comp(f, root->data.first))
             root->left = insert(root->left, f, s);
+        else
+            root->right = insert(root->right, f, s);
 
         return root;
     };
