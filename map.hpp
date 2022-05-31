@@ -41,8 +41,8 @@ namespace ft {
 		typedef typename allocator_type::pointer pointer;
 		typedef typename allocator_type::const_pointer const_pointer;
 		typedef tree<value_type, value_compare, allocator_type> tree;
-		typedef node<value_type> node;
-		typedef node* NodePtr;
+		typedef Node<value_type> Node;
+		typedef Node* NodePtr;
 		typedef tree_iterator<NodePtr, pointer> iterator;
 		typedef tree_iterator<NodePtr, const_pointer> const_iterator;
 		typedef typename ft::reverse_iterator<iterator> reverse_iterator;
