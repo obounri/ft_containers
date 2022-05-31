@@ -1,17 +1,25 @@
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <limits>
-#include "Vector.hpp"
-// #include "Stack.hpp"
-// #include "fcts.hpp"
-#include "pair.hpp"
-// #include "BST.hpp"
-#include "map.hpp"
-#include <memory>
+#include "AVL.hpp"
 
-int main()
-{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main() {
+    AVL<std::string, int, std::less<std::string>, std::allocator<pair<const std::string, int> > >		bst;
     Vector< pair<std::string, int> > v;
 
     const char *p[58] = { "wording", "far", "original", "crouch", "revive", "mainstream", "waiter", "sunshine", "motivation", 
@@ -25,19 +33,16 @@ int main()
         pair<std::string, int> tmp(p[i], i);
         v.push_back(tmp);
     }
+	// bst.createSampleTree1();
+	// bst.insert(v[0]);
+	// bst.insert(v[1]);
+	// bst.insert(v[2]);
+	// bst.insert(v[3]);
 
-    Vector< pair<std::string, int> >::iterator ib = v.begin();
-    Vector< pair<std::string, int> >::iterator ie = v.end();
-
-    map<std::string, int> m(ib, ie);
-    
-    m.debug(1);
-
-    
-    map<std::string, int> n;
-    n.debug();
-
-    std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
-    
-    return 0;
+    for (size_t i = 0; i < 58; i++) {
+        bst.insert(v[i]);
+    }
+	// bst.inorder();
+    bst.prettyPrint();
+	return 0;
 }
