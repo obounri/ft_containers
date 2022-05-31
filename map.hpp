@@ -36,16 +36,11 @@ class map
 
 	private:
 		avl				_tree;
-		// allocator_type	_alloc;
-		// key_compare		_comp;
 		size_type		_size;
 	
 	public:
 		explicit map (const key_compare& comp = key_compare(),
               const allocator_type& alloc = allocator_type()) {
-				// _root = NULL;
-				// _alloc = alloc;
-				// _comp = comp;
 				_size = 0;
 			  };
 

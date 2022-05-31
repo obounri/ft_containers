@@ -15,6 +15,140 @@ struct Node {
     int bf; // balance factor of the node
 };
 
+// tree iterator class
+template <class Iter, class T>
+class tree_iterator : public iterator<std::bidirectional_iterator_tag,
+                        typename iterator_traits<T>::value_type>
+{
+    public:
+        typedef Iter iterator_type;
+        typedef typename iterator_traits<T>::pointer pointer;
+        typedef typename iterator_traits<T>::reference reference;
+        typedef std::bidirectional_iterator_tag 	iterator_category;
+        typedef std::ptrdiff_t difference_type;
+
+    private:
+        iterator_type _current;
+
+    public:
+        tree_iterator() : _current()
+        {
+        }
+
+        tree_iterator(iterator_type _x) : _current(_x)
+        {
+        }
+        
+        template <class OthIter, class U>
+        tree_iterator(const tree_iterator<OthIter, U>& _other) : _current(_other.base())
+        {
+        }
+
+        template <class OthIter, class U>
+        tree_iterator& operator=(const tree_iterator<OthIter, U>& _other)
+        {
+            this->_current = _other.base();
+            return (*this);
+        }
+
+        ~tree_iterator()
+        {
+        }
+
+        reference operator*() const
+        {
+            return _current->_data;
+        }
+
+        pointer operator->() const
+        {
+            return &(operator*());
+        }
+
+        tree_iterator & operator++()
+        {
+            this->_current = successor(this->_current);
+            return (*this);
+        }
+
+        tree_iterator operator++(int)
+        {
+            tree_iterator _tmp(*this);
+            this->_current = successor(this->_current);
+            return (_tmp);
+        }
+
+        tree_iterator & operator--()
+        {
+            this->_current = predecessor(this->_current);
+            return (*this);
+        }
+
+        tree_iterator operator--(int)
+        {
+            tree_iterator _tmp(*this);
+            this->_current = predecessor(this->_current);
+            return (_tmp);
+        }
+
+        iterator_type base() const
+        {
+            return (this->_current);
+        }
+
+    private:
+        iterator_type minimum(iterator_type _x) const
+        {
+            while (_x->_left != nullptr)
+                _x = _x->_left;
+            return (_x);
+        }
+        
+        iterator_type maximum(iterator_type _x) const
+        {
+            while (_x->_right != nullptr)
+                _x = _x->_right;
+            return (_x);
+        }
+        
+        iterator_type successor(iterator_type _x)
+        {
+            if (_x->_right != nullptr)
+                return (minimum(_x->_right));
+            iterator_type _node_y = _x->_parent;
+            while (_node_y != nullptr && _x == _node_y->_right)
+            {
+                _x = _node_y;
+                _node_y = _node_y->_parent;
+            }
+            return (_node_y);
+        }
+        
+        iterator_type predecessor(iterator_type _x)
+        {
+            if (_x->_left != nullptr)
+                return (maximum(_x->_left));
+            iterator_type _node_y = _x->_parent;
+            while (_node_y != nullptr && _x == _node_y->_left)
+            {
+                _x = _node_y;
+                _node_y = _node_y->_parent;
+            }
+            return (_node_y);
+        }
+    public:
+        template <class Iter1, class T1>
+        bool operator==(const tree_iterator<T1, Iter1>& _iter)
+        {
+            return this->_current == _iter.base();
+        }
+        template <class Iter1, class T1>
+        bool operator!=(const tree_iterator<T1, Iter1>& _iter)
+        {
+            return this->_current != _iter.base();
+        }
+};
+
 // class AVL implements the operations in AVL tree
 template <class T1, class T2, class Compare, class Alloc>
 class AVL {
@@ -34,13 +168,14 @@ class AVL {
 
         // initializes the nodes with appropirate values
         // all the pointers are set to point to the null pointer
-        // void initializeNode(NodePtr node, int key) {
-        //     node->data = key;
-        //     node->parent = nullptr;
-        //     node->left = nullptr;
-        //     node->right = nullptr;
-        //     node->bf = 0;
-        // }
+        void initializeNode(NodePtr &node, _pair p) {
+            node->data.first = p.first;
+            node->data.second = p.second;
+            node->parent = nullptr;
+            node->left = nullptr;
+            node->right = nullptr;
+            node->bf = 0;
+        }
 
         void inOrderHelper(NodePtr node) {
             if (node != nullptr) {
@@ -50,16 +185,16 @@ class AVL {
             } 
         }
 
-        // NodePtr searchTreeHelper(NodePtr node, first_type key) {
-        //     if (node == nullptr || key == node->data.first) {
-        //         return node;
-        //     }
+        NodePtr searchTreeHelper(NodePtr node, first_type key) {
+            if (node == nullptr || key == node->data.first) {
+                return node;
+            }
 
-        //     if (key < node->data.first) {
-        //         return searchTreeHelper(node->left, key);
-        //     } 
-        //     return searchTreeHelper(node->right, key);
-        // }
+            if (key < node->data.first) {
+                return searchTreeHelper(node->left, key);
+            } 
+            return searchTreeHelper(node->right, key);
+        }
 
         // NodePtr deleteNodeHelper(NodePtr node, first_type key) {
         //     // search the key
@@ -194,58 +329,58 @@ class AVL {
             return searchTreeHelper(this->root, k);
         }
 
-        // find the node with the minimum key
-        NodePtr minimum(NodePtr node) {
-            while (node->left != nullptr) {
-                node = node->left;
-            }
-            return node;
-        }
+        // // find the node with the minimum key
+        // NodePtr minimum(NodePtr node) {
+        //     while (node->left != nullptr) {
+        //         node = node->left;
+        //     }
+        //     return node;
+        // }
 
-        // find the node with the maximum key
-        NodePtr maximum(NodePtr node) {
-            while (node->right != nullptr) {
-                node = node->right;
-            }
-            return node;
-        }
+        // // find the node with the maximum key
+        // NodePtr maximum(NodePtr node) {
+        //     while (node->right != nullptr) {
+        //         node = node->right;
+        //     }
+        //     return node;
+        // }
 
-        // find the successor of a given node
-        NodePtr successor(NodePtr x) {
-            // if the right subtree is not null,
-            // the successor is the leftmost node in the
-            // right subtree
-            if (x->right != nullptr) {
-                return minimum(x->right);
-            }
+        // // find the successor of a given node
+        // NodePtr successor(NodePtr x) {
+        //     // if the right subtree is not null,
+        //     // the successor is the leftmost node in the
+        //     // right subtree
+        //     if (x->right != nullptr) {
+        //         return minimum(x->right);
+        //     }
 
-            // else it is the lowest ancestor of x whose
-            // left child is also an ancestor of x.
-            NodePtr y = x->parent;
-            while (y != nullptr && x == y->right) {
-                x = y;
-                y = y->parent;
-            }
-            return y;
-        }
+        //     // else it is the lowest ancestor of x whose
+        //     // left child is also an ancestor of x.
+        //     NodePtr y = x->parent;
+        //     while (y != nullptr && x == y->right) {
+        //         x = y;
+        //         y = y->parent;
+        //     }
+        //     return y;
+        // }
 
-        // find the predecessor of a given node
-        NodePtr predecessor(NodePtr x) {
-            // if the left subtree is not null,
-            // the predecessor is the rightmost node in the 
-            // left subtree
-            if (x->left != nullptr) {
-                return maximum(x->left);
-            }
+        // // find the predecessor of a given node
+        // NodePtr predecessor(NodePtr x) {
+        //     // if the left subtree is not null,
+        //     // the predecessor is the rightmost node in the 
+        //     // left subtree
+        //     if (x->left != nullptr) {
+        //         return maximum(x->left);
+        //     }
 
-            NodePtr y = x->parent;
-            while (y != nullptr && x == y->left) {
-                x = y;
-                y = y->parent;
-            }
+        //     NodePtr y = x->parent;
+        //     while (y != nullptr && x == y->left) {
+        //         x = y;
+        //         y = y->parent;
+        //     }
 
-            return y;
-        }
+        //     return y;
+        // }
 
         // rotate left at node x
         void leftRotate(NodePtr x) {
@@ -297,16 +432,10 @@ class AVL {
         // here 
         void insert(_pair p) {
             // PART 1: Ordinary BST insert
-            // NodePtr node = new Node<_pair>;
             NodePtr node;
             node = _node_alloc.allocate(1);
             _node_alloc.construct(node, Node<_pair>());
-            node->parent = nullptr;
-            node->left = nullptr;
-            node->right = nullptr;
-            node->data.first = p.first;
-            node->data.second = p.second;
-            node->bf = 0;
+            initializeNode(node, p);
             NodePtr y = nullptr;
             NodePtr x = this->root;
 
