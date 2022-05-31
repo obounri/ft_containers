@@ -68,9 +68,15 @@ destruction and built-in types: https://stackoverflow.com/questions/71010802/wil
 allocator: http://candcplusplus.com/c-allocator-class-member-functions
 iterators and reallocation: https://stackoverflow.com/questions/36300745/how-do-iterators-update-after-vector-reallocation
 insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(), clear() invalidate iterators, references and pointers
-binary search tree:
-https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
-AVL tree - balanced binary search tree:
-https://www.youtube.com/watch?v=vRwi_UcZGjU&ab_channel=BackToBackSWE
-https://www.youtube.com/watch?v=FNeL18KsWPc&ab_channel=MITOpenCourseWare
-https://progmohamedali.wordpress.com/2013/03/20/third-semester-project/
+
+For map:
+    binary search tree:
+    https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
+    AVL tree - balanced binary search tree:
+    https://www.youtube.com/watch?v=vRwi_UcZGjU&ab_channel=BackToBackSWE
+    https://www.youtube.com/watch?v=FNeL18KsWPc&ab_channel=MITOpenCourseWare
+    https://progmohamedali.wordpress.com/2013/03/20/third-semester-project/
+    Red-Black trees
+    https://www.youtube.com/watch?v=nMExd4DthdA&list=PLpPXw4zFa0uKKhaSz87IowJnOTzh9tiBk&index=67&ab_channel=RobEdwards
+    https://www.youtube.com/watch?v=v6eDztNiJwo&list=PLpPXw4zFa0uKKhaSz87IowJnOTzh9tiBk&index=67&ab_channel=RobEdwards
+    https://www.youtube.com/watch?v=-qjrcxVmf2Q&list=PLpPXw4zFa0uKKhaSz87IowJnOTzh9tiBk&index=68&ab_channel=RobEdwards

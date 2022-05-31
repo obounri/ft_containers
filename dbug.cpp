@@ -12,7 +12,7 @@
 
 int main()
 {
-    Vector< pair<std::string, int> > v;
+    ft::vector< ft::pair<std::string, int> > v;
 
     const char *p[58] = { "wording", "far", "original", "crouch", "revive", "mainstream", "waiter", "sunshine", "motivation", 
         "quarter", "zero", "noble", "module", "lump", "incredible", "visual", "ranch", "default", "admiration", "chase", 
@@ -22,20 +22,21 @@ int main()
         "nonremittal", "indulge" };
 
     for (size_t i = 0; i < 58; i++) {
-        pair<std::string, int> tmp(p[i], i);
+        ft::pair<std::string, int> tmp(p[i], i);
         v.push_back(tmp);
     }
 
-    Vector< pair<std::string, int> >::iterator ib = v.begin();
-    Vector< pair<std::string, int> >::iterator ie = v.end();
+    ft::vector< ft::pair<std::string, int> >::iterator ib = v.begin();
+    ft::vector< ft::pair<std::string, int> >::iterator ie = v.end();
 
-    map<std::string, int> m(ib, ie);
+    ft::map<std::string, int> m(ib, ie);
+    ft::map<std::string, int>::iterator first = m.begin();
+    ft::map<std::string, int>::iterator last = m.end();
     
-    m.debug(1);
-
+    for (; first != last; first++) {
+        std::cout << (*first).first << std::endl; 
+    }
     
-    map<std::string, int> n;
-    n.debug();
 
     std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
     
