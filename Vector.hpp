@@ -1,9 +1,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <string>
 #include <exception>
-#include <iostream>
 #include <memory>
 #include "iterator.hpp"
 

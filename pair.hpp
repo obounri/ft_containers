@@ -1,7 +1,7 @@
 #ifndef PAIR_HPP
 #define PAIR_HPP
 
-namespace ft {
+namespace fc {
     template <class T1, class T2>
     struct pair 
     {
@@ -13,7 +13,9 @@ namespace ft {
 
         pair():first(), second() {} ;
         
-        template<class U, class V> pair(const pair<U,V>& pr):first(pr.first), second(pr.second) {} ;
+        template<class U, class V> 
+        pair(const pair<U,V>& pr):first(pr.first), second(pr.second) {} ;
+    
         pair(const first_type& a, const second_type& b): first(a), second(b) {} ;
 
         pair& operator= (const pair& pr) { if (this == &pr) return *this; first = pr.first; second = pr.second; return *this; } ;
@@ -48,7 +50,7 @@ namespace ft {
         return ( pair<T1, T2>(x, y) );
     }
 
-} // namespace ft
+} // namespace fc
 
 
 #endif

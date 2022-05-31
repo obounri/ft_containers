@@ -6,35 +6,35 @@
 
 int main()
 {
-    Vector<int>    v1;
-    Vector<int>    v2(8, 3);
+    ft::vector<int>    v1;
+    ft::vector<int>    v2(8, 3);
 
     int p [] = {16, 2, 77, 40, 12071};
     std::cout << "Range constructing v3 from int p [] = {16, 2, 77, 40, 12071} "; 
     std::cout << ", assigning v3 to v4, copy constructing v5 from v4" << "\n\n";
 
-    Vector<int>    v3(p, p+5);
+    ft::vector<int>    v3(p, p+5);
 
 
-    Vector<int>    v4;
+    ft::vector<int>    v4;
     v4 = v3;
 
-    Vector<int> v5(v4);
+    ft::vector<int> v5(v4);
 
-    Vector<int>::iterator f_iter;
-    Vector<int>::iterator l_iter;
+    ft::vector<int>::iterator f_iter;
+    ft::vector<int>::iterator l_iter;
 
     f_iter = v5.begin();
     l_iter = v5.end();
 
 
     std::vector<std::size_t> c;
-    Vector<std::size_t> d;
+    ft::vector<std::size_t> d;
     
     std::cout << "std::vector<std::size_t> alloc max size " << c.max_size() << " ft::vector<std::size_t> max size " << d.max_size() << "\n\n";
 
-    Vector<int>::reverse_iterator rf_iter;
-    Vector<int>::reverse_iterator rl_iter;
+    ft::vector<int>::reverse_iterator rf_iter;
+    ft::vector<int>::reverse_iterator rl_iter;
 
     rf_iter = v5.rbegin();
     rl_iter = v5.rend();

@@ -1,18 +1,11 @@
-#include <vector>
 #include <iostream>
-#include <algorithm>
-#include <limits>
 #include "Vector.hpp"
-// #include "Stack.hpp"
-// #include "fcts.hpp"
 #include "pair.hpp"
-// #include "BST.hpp"
 #include "map.hpp"
-#include <memory>
 
 int main()
 {
-    ft::vector< ft::pair<std::string, int> > v;
+    ft::vector< fc::pair<std::string, int> > v;
 
     const char *p[58] = { "wording", "far", "original", "crouch", "revive", "mainstream", "waiter", "sunshine", "motivation", 
         "quarter", "zero", "noble", "module", "lump", "incredible", "visual", "ranch", "default", "admiration", "chase", 
@@ -22,12 +15,12 @@ int main()
         "nonremittal", "indulge" };
 
     for (size_t i = 0; i < 58; i++) {
-        ft::pair<std::string, int> tmp(p[i], i);
+        fc::pair<std::string, int> tmp(p[i], i);
         v.push_back(tmp);
     }
 
-    ft::vector< ft::pair<std::string, int> >::iterator ib = v.begin();
-    ft::vector< ft::pair<std::string, int> >::iterator ie = v.end();
+    ft::vector< fc::pair<std::string, int> >::iterator ib = v.begin();
+    ft::vector< fc::pair<std::string, int> >::iterator ie = v.end();
 
     ft::map<std::string, int> m(ib, ie);
     ft::map<std::string, int>::iterator first = m.begin();

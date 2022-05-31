@@ -7,7 +7,11 @@ CC = c++
 HEADER = iterator_traits.hpp \
 		iterator.hpp \
 		Vector.hpp \
-		stack.hpp
+		Stack.hpp \
+		fcts.hpp \
+		map.hpp \
+		pair.hpp \
+		red_black.hpp
 
 NAME = containers
 SRC_FILE =  main.cpp
