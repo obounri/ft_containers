@@ -1,24 +1,24 @@
 #ifndef MAP_HPP
 # define MAP_HPP
 
-// # include <memory>
+# include <memory>
 // # include "fcts.hpp"
 # include "red_black.hpp"
-# include "iterator_traits.hpp"
+# include "iterator.hpp"
 # include "pair.hpp"
 
 namespace ft {
 	template < class Key,
 				class T,
 				class Compare = std::less<Key>,
-				class Alloc = std::allocator< fc::pair<const Key,T> >
+				class Alloc = std::allocator< pair<const Key,T> >
 				>
 	class map
 	{
 	public:
 		typedef Key key_type;
 		typedef T mapped_type;
-		typedef fc::pair<const key_type, mapped_type> value_type;
+		typedef pair<const key_type, mapped_type> value_type;
 		typedef Compare key_compare;
 		class value_compare
 		{
@@ -149,7 +149,7 @@ namespace ft {
 			iterator _f = this->find(_k);
 			if (_f != this->end())
 				return ((*_f).second);
-			return (*((this->insert(fc::make_pair(_k, mapped_type()))).first)).second;
+			return (*((this->insert(make__pair(_k, mapped_type()))).first)).second;
 		}
 
 		void clear()
@@ -157,16 +157,16 @@ namespace ft {
 			this->_tree.clear();
 		}
 
-		fc::pair<iterator,bool> insert (const value_type& val)
+		pair<iterator,bool> insert (const value_type& val)
 		{
 			iterator _f = this->find(val.first);
 			if (_f == this->end())
 			{
 				this->_tree.insert(val);
 				_f = this->find(val.first);
-				return fc::pair<iterator,bool>(_f, true);
+				return pair<iterator,bool>(_f, true);
 			}
-			return fc::pair<iterator,bool>(_f, false);
+			return pair<iterator,bool>(_f, false);
 		}
 
 		iterator insert (iterator position, const value_type& val)
@@ -210,7 +210,7 @@ namespace ft {
 
 		iterator find (const key_type& _k)
 		{
-			NodePtr _y = this->_tree.find(fc::make_pair(_k, mapped_type()));
+			NodePtr _y = this->_tree.find(make__pair(_k, mapped_type()));
 			if (_y == nullptr)
 				return this->end();
 			return iterator(_y);
@@ -218,7 +218,7 @@ namespace ft {
 
 		const_iterator find (const key_type& _k) const
 		{
-			NodePtr _y = this->_tree.find(fc::make_pair(_k, mapped_type()));
+			NodePtr _y = this->_tree.find(make__pair(_k, mapped_type()));
 			if (_y == nullptr)
 				return this->end();
 			return const_iterator(_y);
@@ -248,32 +248,32 @@ namespace ft {
 
 		iterator lower_bound (const key_type& _k)
 		{
-			return _tree.lower_bound(fc::make_pair(_k, mapped_type()));
+			return _tree.lower_bound(make__pair(_k, mapped_type()));
 		}
 
 		const_iterator lower_bound (const key_type& _k) const
 		{
-			return _tree.lower_bound(fc::make_pair(_k, mapped_type()));
+			return _tree.lower_bound(make__pair(_k, mapped_type()));
 		}
 
 		iterator upper_bound (const key_type& _k)
 		{
-			return _tree.upper_bound(fc::make_pair(_k, mapped_type()));
+			return _tree.upper_bound(make__pair(_k, mapped_type()));
 		}
 
 		const_iterator upper_bound (const key_type& _k) const
 		{
-			return _tree.upper_bound(fc::make_pair(_k, mapped_type()));
+			return _tree.upper_bound(make__pair(_k, mapped_type()));
 		}
 
-		fc::pair<const_iterator,const_iterator> equal_range (const key_type& _k) const
+		pair<const_iterator,const_iterator> equal_range (const key_type& _k) const
 		{
-			return fc::pair<const_iterator,const_iterator>(lower_bound(_k), upper_bound(_k));
+			return pair<const_iterator,const_iterator>(lower_bound(_k), upper_bound(_k));
 		}
 
-		fc::pair<iterator,iterator> equal_range (const key_type& _k)
+		pair<iterator,iterator> equal_range (const key_type& _k)
 		{
-			return fc::pair<iterator,iterator>(lower_bound(_k), upper_bound(_k));
+			return pair<iterator,iterator>(lower_bound(_k), upper_bound(_k));
 		}
 
 		allocator_type get_allocator() const
