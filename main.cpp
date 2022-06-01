@@ -2,10 +2,10 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
-#include "vector.hpp"
-#include "stack.hpp"
-#include "map.hpp"
-#include "pair.hpp"
+#include "srcs/vector.hpp"
+#include "srcs/stack.hpp"
+#include "srcs/map.hpp"
+#include "srcs/pair.hpp"
 
 class PrettyTree
 {

@@ -2,14 +2,14 @@ CC = clang++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-HEADER =iterators.hpp \
-		vector.hpp \
-		stack.hpp \
-		fcts.hpp \
-		map.hpp \
-		pair.hpp \
-		Tree.hpp \
-		Type_traits.hpp
+HEADER =srcs/iterators.hpp \
+		srcs/vector.hpp \
+		srcs/stack.hpp \
+		srcs/fcts.hpp \
+		srcs/map.hpp \
+		srcs/pair.hpp \
+		srcs/Tree.hpp \
+		srcs/Type_traits.hpp
 
 NAME = containers
 SRC_FILE =  main.cpp
