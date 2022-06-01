@@ -1,4 +1,4 @@
-Vector features:
+vector features:
 arrays that can change in size
 Internally, vectors use a dynamically allocated array to store their elements
 extra storage to accommodate for possible growth
@@ -11,7 +11,7 @@ https://en.cppreference.com/w/cpp/memory/allocator
 
 vector behavior:
 https://stackoverflow.com/questions/17299951/c-vector-what-happens-whenever-it-expands-reallocate-on-stack
-Vector constructor: https://www.cplusplus.com/reference/vector/vector/vector/
+vector constructor: https://www.cplusplus.com/reference/vector/vector/vector/
 Writing your own STL Container: https://stackoverflow.com/questions/7758580/writing-your-own-stl-container/7759622#7759622
 
 details about iterator_traits:
@@ -20,11 +20,11 @@ http://www.cplusplus.com/forum/beginner/43395/
 https://en.cppreference.com/w/cpp/iterator/iterator_traits#:~:text=std%3A%3Aiterator_traits%20is%20the,only%20in%20terms%20of%20iterators.
 https://en.cppreference.com/w/cpp/iterator/reverse_iterator
 
-Expected implementions for ft::Vector :
+Expected implementions for ft::vector :
 
 Public Member functions:
     (constructor)   //  Construct vector k
-    (destructor)    //  Vector destructor k
+    (destructor)    //  vector destructor k
     operator=   //  Assign content k
 
     Iterators:

@@ -3,7 +3,7 @@
 
 #include <exception>
 #include <memory>
-#include "iterator.hpp"
+#include "iterators.hpp"
 
 namespace ft {
     template <class T, class Alloc = std::allocator<T> >
@@ -114,7 +114,11 @@ namespace ft {
         }
 
         void push_back(const value_type &val) {
-            this->reserve(this->_size + 1);
+            if (this->_size < 10)
+                this->reserve(this->_size + 1);
+            else if (this->_size > (this->_capacity / 4 * 3))
+                this->reserve(this->_capacity + (this->_capacity / 4));
+
             _alloc.construct(&this->_data[this->_size], val);
             this->_size++;
         }

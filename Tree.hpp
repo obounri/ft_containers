@@ -1,9 +1,9 @@
 #ifndef TREE_HPP
 # define TREE_HPP
 
-// # include <memory>
-# include "iterator.hpp"
-// # include "fcts.hpp"
+# include <memory>
+# include "iterators.hpp"
+# include "pair.hpp"
 
 # define BLACK 1
 # define RED 0
@@ -11,17 +11,17 @@
 namespace ft {
 	// Template struct node
 	template <class T>
-	struct Node {
+	struct node {
 		typedef T value_type;
 
 		bool		_color;
 		value_type	_data;
-		Node		*_right;
-		Node		*_left;
-		Node		*_parent;
+		node		*_right;
+		node		*_left;
+		node		*_parent;
 
-		Node() :_color(BLACK), _data(), _right(nullptr), _left(nullptr), _parent(nullptr) {}
-		Node(value_type data) :_color(BLACK), _data(data), _right(nullptr), _left(nullptr), _parent(nullptr) {}
+		node() :_color(BLACK), _data(), _right(nullptr), _left(nullptr), _parent(nullptr) {}
+		node(value_type data) :_color(BLACK), _data(data), _right(nullptr), _left(nullptr), _parent(nullptr) {}
 	};
 
 	// tree iterator class
@@ -169,19 +169,19 @@ namespace ft {
 		typedef typename Alloc::const_pointer	const_pointer;
 		typedef typename Alloc::reference		reference;
 		typedef typename Alloc::const_reference	const_reference;
-		typedef struct Node<value_type>			Node;
-		typedef Node*							NodePtr;
+		typedef struct node<value_type>			node;
+		typedef node*							node_pointer;
 		typedef Compare							value_compare;
-		typedef tree_iterator<NodePtr, pointer> iterator;
-		typedef tree_iterator<NodePtr, const_pointer> const_iterator;
+		typedef tree_iterator<node_pointer, pointer> iterator;
+		typedef tree_iterator<node_pointer, const_pointer> const_iterator;
 		typedef typename ft::reverse_iterator<iterator> reverse_iterator;
 		typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
-		typedef typename Alloc::template rebind<Node>::other	allocator_type;
+		typedef typename Alloc::template rebind<node>::other	allocator_type;
 		typedef size_t	size_type;
 
 	private:
-		NodePtr	_root;
-		NodePtr	_end;
+		node_pointer	_root;
+		node_pointer	_end;
 
 		allocator_type _alloc;
 		value_compare _comp;
@@ -289,9 +289,9 @@ namespace ft {
 		}
 
 		// Search operation
-		NodePtr find(const value_type& data) const
+		node_pointer find(const value_type& data) const
 		{
-			NodePtr _current = this->_root;
+			node_pointer _current = this->_root;
 			while (_current != nullptr) {
 				if (!_comp(_current->_data, data) && !_comp(data, _current->_data))
 					break;
@@ -307,8 +307,8 @@ namespace ft {
 
 		iterator lower_bound (const value_type& _value)
 		{
-			NodePtr _result = _end;
-			NodePtr _node_r = this->_root;
+			node_pointer _result = _end;
+			node_pointer _node_r = this->_root;
 			while (_node_r != nullptr)
 			{
 				if (!_comp(_node_r->_data, _value))
@@ -324,8 +324,8 @@ namespace ft {
 
 		const_iterator lower_bound (const value_type& _value) const
 		{
-			NodePtr _result = _end;
-			NodePtr _node_r = this->_root;
+			node_pointer _result = _end;
+			node_pointer _node_r = this->_root;
 			while (_node_r != nullptr)
 			{
 				if (!_comp(_node_r->_data, _value))
@@ -341,8 +341,8 @@ namespace ft {
 
 		iterator upper_bound (const value_type& _value)
 		{
-			NodePtr _result = _end;
-			NodePtr _node_r = this->_root;
+			node_pointer _result = _end;
+			node_pointer _node_r = this->_root;
 			while (_node_r != nullptr)
 			{
 				if (_comp(_value, _node_r->_data))
@@ -358,8 +358,8 @@ namespace ft {
 
 		const_iterator upper_bound (const value_type& _value) const
 		{
-			NodePtr _result = _end;
-			NodePtr _node_r = this->_root;
+			node_pointer _result = _end;
+			node_pointer _node_r = this->_root;
 			while (_node_r != nullptr)
 			{
 				if (_comp(_value, _node_r->_data))
@@ -388,9 +388,9 @@ namespace ft {
 				return ;
 			this->_end->_left = nullptr;
 			_root->_parent = nullptr;
-			NodePtr _new_node = this->makenode(_data);
-			NodePtr _parent_ = nullptr;
-			NodePtr _node_r = this->_root;
+			node_pointer _new_node = this->makenode(_data);
+			node_pointer _parent_ = nullptr;
+			node_pointer _node_r = this->_root;
 			while (_node_r != nullptr)
 			{
 				_parent_ = _node_r;
@@ -411,13 +411,13 @@ namespace ft {
 		// Delete operation
 		void erase(value_type _data = value_type())
 		{
-			NodePtr _del_node;
-			NodePtr _node_x;
+			node_pointer _del_node;
+			node_pointer _node_x;
 			if (!this->_root || (_del_node = this->find(_data)) == nullptr)
 				return ;
 			this->_end->_left = nullptr;
 			this->_root->_parent = nullptr;
-			NodePtr _node_y = _del_node;
+			node_pointer _node_y = _del_node;
 			bool _deleted_col = _node_y->_color;
 			if (_del_node->_left == nullptr)
 			{
@@ -462,25 +462,25 @@ namespace ft {
 			this->_size--;
 		}
 
-		NodePtr minimum(NodePtr _node_x) const
+		node_pointer minimum(node_pointer _node_x) const
 		{
 			while (_node_x->_left != nullptr)
 				_node_x = _node_x->_left;
 			return (_node_x);
 		}
 
-		NodePtr maximum(NodePtr _node_x) const
+		node_pointer maximum(node_pointer _node_x) const
 		{
 			while (_node_x->_right != nullptr)
 				_node_x = _node_x->_right;
 			return (_node_x);
 		}
 
-		NodePtr successor(NodePtr _node_x)
+		node_pointer successor(node_pointer _node_x)
 		{
 			if (_node_x->_right != nullptr)
 				return (minimum(_node_x->_right));
-			NodePtr _node_y = _node_x->_parent;
+			node_pointer _node_y = _node_x->_parent;
 			while (_node_y !=  nullptr && _node_x == _node_y->_right)
 			{
 				_node_x = _node_y;
@@ -489,11 +489,11 @@ namespace ft {
 			return (_node_y);
 		}
 
-		NodePtr predecessor(NodePtr _node_x)
+		node_pointer predecessor(node_pointer _node_x)
 		{
 			if (_node_x->_left != nullptr)
 				return (maximum(_node_x->_left));
-			NodePtr _node_y = _node_x->_parent;
+			node_pointer _node_y = _node_x->_parent;
 			while (_node_y != nullptr && _node_x == _node_y->_left)
 			{
 				_node_x = _node_y;
@@ -503,20 +503,20 @@ namespace ft {
 		}
 
 		private:
-		NodePtr makenode(value_type _data = value_type())
+		node_pointer makenode(value_type _data = value_type())
 		{
-			NodePtr _new_node = _alloc.allocate(1);
+			node_pointer _new_node = _alloc.allocate(1);
 			_alloc.construct(_new_node, _data);
 			return (_new_node);
 		}
 
-		void treeFixAfterInsert(NodePtr _fix_node)
+		void treeFixAfterInsert(node_pointer _fix_node)
 		{
 			while (_fix_node->_parent != nullptr && _fix_node->_parent->_color == RED)
 			{
 				if (_fix_node->_parent == _fix_node->_parent->_parent->_left)
 				{
-					NodePtr _sibling = _fix_node->_parent->_parent->_right;
+					node_pointer _sibling = _fix_node->_parent->_parent->_right;
 					if (_sibling != nullptr && _sibling->_color == RED)
 					{
 						_fix_node->_parent->_color = BLACK;
@@ -539,7 +539,7 @@ namespace ft {
 				}
 				else
 				{
-					NodePtr _sibling = _fix_node->_parent->_parent->_left;
+					node_pointer _sibling = _fix_node->_parent->_parent->_left;
 					if (_sibling != nullptr && _sibling->_color == RED)
 					{
 						_fix_node->_parent->_color = BLACK;
@@ -564,9 +564,9 @@ namespace ft {
 			this->_root->_color = BLACK;
 		}
 
-		void leftRotate(NodePtr _node_x)
+		void leftRotate(node_pointer _node_x)
 		{
-			NodePtr _node_y = _node_x->_right;
+			node_pointer _node_y = _node_x->_right;
 			_node_x->_right = _node_y->_left;
 			if (_node_y->_left != nullptr)
 				_node_y->_left->_parent = _node_x;
@@ -581,9 +581,9 @@ namespace ft {
 			_node_x->_parent = _node_y;
 		}
 
-		void rightRotate(NodePtr _node_x)
+		void rightRotate(node_pointer _node_x)
 		{
-			NodePtr _node_y = _node_x->_left;
+			node_pointer _node_y = _node_x->_left;
 			_node_x->_left = _node_y->_right;
 			if (_node_y->_right != nullptr)
 				_node_y->_right->_parent = _node_x;
@@ -598,7 +598,7 @@ namespace ft {
 			_node_x->_parent = _node_y; 
 		}
 
-		void destroy(NodePtr _node_x)
+		void destroy(node_pointer _node_x)
 		{
 			if (_node_x != nullptr)
 			{
@@ -609,7 +609,7 @@ namespace ft {
 			}
 		}
 
-		void shift(NodePtr _node_u, NodePtr _node_v)
+		void shift(node_pointer _node_u, node_pointer _node_v)
 		{
 			if (_node_u->_parent == nullptr)
 				this->_root = _node_v;
@@ -621,13 +621,13 @@ namespace ft {
 				_node_v->_parent = _node_u->_parent;
 		}
 
-		void treeFixAfterRemove(NodePtr _node_x)
+		void treeFixAfterRemove(node_pointer _node_x)
 		{
 			while (_node_x != this->_root && _node_x->_color == BLACK)
 			{
 				if (_node_x != nullptr && _node_x == _node_x->_parent->_left)
 				{
-					NodePtr _sibling = _node_x->_parent->_right;
+					node_pointer _sibling = _node_x->_parent->_right;
 					if (_sibling != nullptr && _sibling->_color == RED)
 					{
 						_sibling->_color = BLACK;
@@ -659,7 +659,7 @@ namespace ft {
 				}
 				else
 				{
-					NodePtr _sibling = _node_x->_parent->_left;
+					node_pointer _sibling = _node_x->_parent->_left;
 					if (_sibling != nullptr && _sibling->_color == RED)
 					{
 						_sibling->_color = BLACK;
