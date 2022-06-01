@@ -61,11 +61,9 @@ int main(int argc, char** argv) {
 	ft::vector<Buffer> vector_buffer;
 	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
 	ft::map<int, int> map_int;
-    // std::cout << "count " << COUNT << std::endl;
-    // exit(0);
+
 	for (int i = 0; i < COUNT; i++)
 	{
-        // std::cout << "inserting to vector " << i << std::endl;
 		vector_buffer.push_back(Buffer());
 	}
 
@@ -87,12 +85,13 @@ int main(int argc, char** argv) {
 	}
 	catch(const std::exception& e)
 	{
+
+		std::cerr << "Exception catched" <<std::endl;
 		//NORMAL ! :P
 	}
 	
 	for (int i = 0; i < COUNT; ++i)
 	{
-        // std::cout << "inserting to map" << std::endl;
 		map_int.insert(ft::make_pair(rand(), rand()));
 	}
 

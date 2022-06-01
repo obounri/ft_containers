@@ -4,6 +4,7 @@
 #include <exception>
 #include <memory>
 #include "iterators.hpp"
+#include "fcts.hpp"
 
 namespace ft {
     template <class T, class Alloc = std::allocator<T> >
@@ -97,11 +98,11 @@ namespace ft {
         // element access
         reference   operator[] ( size_type index ) const ;
         reference at (size_type n);
-        // const_reference at (size_type n) const; // how to know if vector object is const qualified
+        const_reference at (size_type n) const; // how to know if vector object is const qualified
         reference front();
-        // const_reference front() const;
+        const_reference front() const;
         reference back();
-        // const_reference back() const;
+        const_reference back() const;
 
         void assign(size_type n, const value_type &val) {
             vector tmp(n , val);
@@ -342,6 +343,13 @@ namespace ft {
             throw std::out_of_range("out_of_range");
         return *(this->_data + n);
     }
+    
+    template<class T, class Alloc>
+    typename vector<T, Alloc>::const_reference      vector<T, Alloc>::at (size_type n) const {
+        if (n >= this->_size)
+            throw std::out_of_range("out_of_range");
+        return *(this->_data + n);
+    }
 
     template<class T, class Alloc>
     typename vector<T, Alloc>::reference      vector<T, Alloc>::front () {
@@ -349,7 +357,17 @@ namespace ft {
     }
 
     template<class T, class Alloc>
+    typename vector<T, Alloc>::const_reference      vector<T, Alloc>::front () const {
+        return *(this->_data);
+    }
+
+    template<class T, class Alloc>
     typename vector<T, Alloc>::reference      vector<T, Alloc>::back () {
+        return *(this->_data + this->_size - 1);
+    }
+
+    template<class T, class Alloc>
+    typename vector<T, Alloc>::const_reference      vector<T, Alloc>::back () const {
         return *(this->_data + this->_size - 1);
     }
 
@@ -368,20 +386,20 @@ namespace ft {
         }
     }
 
-    // template <class T, class Alloc>
-    // bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
-    //     return rhs.size() == lhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin());
-    // }
+    template <class T, class Alloc>
+    bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+        return rhs.size() == lhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+    }
 
     template <class T, class Alloc>
     bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
         return !(lhs == rhs);
     }
 
-    // template <class T, class Alloc>
-    // bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
-    //     return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-    // }
+    template <class T, class Alloc>
+    bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+        return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
 
     template <class T, class Alloc>
     bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {

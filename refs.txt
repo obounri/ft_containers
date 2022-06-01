@@ -70,6 +70,7 @@ iterators and reallocation: https://stackoverflow.com/questions/36300745/how-do-
 insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(), clear() invalidate iterators, references and pointers
 
 For map:
+    https://github.com/Bibeknam/algorithmtutorprograms
     binary search tree:
     https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
     AVL tree - balanced binary search tree:
@@ -80,3 +81,8 @@ For map:
     https://www.youtube.com/watch?v=nMExd4DthdA&list=PLpPXw4zFa0uKKhaSz87IowJnOTzh9tiBk&index=67&ab_channel=RobEdwards
     https://www.youtube.com/watch?v=v6eDztNiJwo&list=PLpPXw4zFa0uKKhaSz87IowJnOTzh9tiBk&index=67&ab_channel=RobEdwards
     https://www.youtube.com/watch?v=-qjrcxVmf2Q&list=PLpPXw4zFa0uKKhaSz87IowJnOTzh9tiBk&index=68&ab_channel=RobEdwards
+    https://tildesites.bowdoin.edu/~ltoma/teaching/cs231/fall16/Lectures/05-BST/rbtrees.pdf
+    https://courses.cs.duke.edu/cps100e/fall98/lects/sect17rbtreeH.pdf
+
+enable_if:
+https://www.youtube.com/watch?v=H-m23Vvzcug&ab_channel=CppinDetail
