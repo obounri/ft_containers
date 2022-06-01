@@ -98,7 +98,7 @@ namespace ft {
         // element access
         reference   operator[] ( size_type index ) const ;
         reference at (size_type n);
-        const_reference at (size_type n) const; // how to know if vector object is const qualified
+        const_reference at (size_type n) const;
         reference front();
         const_reference front() const;
         reference back();

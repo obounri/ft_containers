@@ -26,13 +26,15 @@ namespace ft {
             value_type& top() {
                 return c.back();
             };
+            const value_type& top() const {
+                return c.back();
+            };
             void push (const value_type& val) {
                 c.push_back(val);
             };
             void pop() {
                 c.pop_back();
             };
-            // const value_type& top() const;
     };
 
     template <class T, class Container>

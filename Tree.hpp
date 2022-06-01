@@ -188,6 +188,30 @@ namespace ft {
 		size_type _size;
 
 	public:
+
+		void prettyPrint(node_pointer root, std::string indent, bool last) {
+        	// print the tree structure on the screen
+            if (root != nullptr) {
+                std::cout << indent;
+                if (last) {
+                    std::cout<<"R----";
+                    indent += "     ";
+                } else {
+                    std::cout<<"L----";
+                    indent += "|    ";
+                }
+
+                std::cout<<root->_data.first<<"( C = "<<root->_color<<")"<<std::endl;
+
+                prettyPrint(root->_left, indent, false);
+                prettyPrint(root->_right, indent, true);
+            }
+        }
+
+		node_pointer root_base() {
+			return this->_root;
+		}
+
 		tree(value_compare _comp, allocator_type _alloc): _root(nullptr), _end(), _alloc(_alloc), _comp(_comp), _size(0)
 		{
 			_end = this->makenode();

@@ -70,7 +70,7 @@ iterators and reallocation: https://stackoverflow.com/questions/36300745/how-do-
 insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(), clear() invalidate iterators, references and pointers
 
 For map:
-    https://github.com/Bibeknam/algorithmtutorprograms
+    data-structures: https://github.com/Bibeknam/algorithmtutorprograms
     binary search tree:
     https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
     AVL tree - balanced binary search tree:

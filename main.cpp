@@ -3,6 +3,30 @@
 #include <algorithm>
 #include <limits>
 #include "vector.hpp"
+#include "stack.hpp"
+#include "map.hpp"
+#include "pair.hpp"
+
+class PrettyTree
+{
+    private:
+        typedef ft::tree<ft::pair<const int, int> > 	tree;
+        tree _tree;
+
+    public:
+        template <class InputIterator>
+        PrettyTree(InputIterator first, InputIterator last):_tree( tree::value_compare(), tree::allocator_type()) {
+            for (; first != last; first++) {
+                _tree.insert(*first);
+            }
+        };
+
+        ~PrettyTree() {} ;
+        
+        void prettyPrint() {
+            _tree.prettyPrint(_tree.root_base(), "", 1);
+        }
+};
 
 int main()
 {
@@ -84,7 +108,51 @@ int main()
     l_iter = v5.end();
     std::cout << "v5.size() " << v5.size() << " v5.capacity() " << v5.capacity() << " v5.min() " << *(std::min_element(f_iter, l_iter)) << " v5.max() " << *(std::max_element(f_iter, l_iter)) << std::endl << std::endl;
 
-    std::cout << "-------------------------------------------------------------------" << std::endl;
+    // map
+    std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
+
+    const char *strs[58] = { "wording", "far", "original", "crouch", "revive", "mainstream", "waiter", "sunshine", "motivation", 
+        "quarter", "zero", "noble", "module", "lump", "incredible", "visual", "ranch", "default", "admiration", "chase", 
+        "pedestrian", "evening", "concert", "environmental", "alarm", "injury", "disaster", "theft", "bill", "fax", "trainer", 
+        "display", "looting", "crystal", "fill", "prisoner", "war", "breakfast", "camera", "coup", "gravity", "lay", "hit", 
+        "straight", "rate", "band", "helpless", "sex", "eject", "dash", "contrast", "rehearsal", "golf", "poem", "desire", "waist", 
+        "nonremittal", "indulge" };
+
+    ft::vector< ft::pair<std::string, int> > v;
+    for (size_t i = 0; i < 58; i++) {
+        ft::pair<std::string, int> vtmp(strs[i], i);
+        v.push_back(vtmp);
+    }
+
+    ft::vector< ft::pair<std::string, int> >::iterator vb = v.begin();
+    ft::vector< ft::pair<std::string, int> >::iterator ve = v.end();
+
+    ft::map<std::string, int> str_map(vb, ve);
+    ft::map<std::string, int>::iterator first = str_map.begin();
+    ft::map<std::string, int>::iterator last = str_map.end();
+    
+    for (; first != last; first++) {
+        std::cout << (*first).first << ", " << (*first).second << std::endl; 
+    }
+    
+    std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
+
+    ft::vector< ft::pair<int, int> > vPretty;
+
+    for (size_t i = 0; i < 10; i++) {
+        ft::pair<int, int> tmp(i, i);
+        vPretty.push_back(tmp);
+    }
+
+    ft::vector< ft::pair<int, int> >::iterator ib = vPretty.begin();
+    ft::vector< ft::pair<int, int> >::iterator ie = vPretty.end();
+
+    PrettyTree m(ib, ie);
+    m.prettyPrint();
+    // visualization https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
+
+
+    std::cout << std::endl << "-------------------------------------------------------------------" << std::endl;
     
     return 0;
 }
