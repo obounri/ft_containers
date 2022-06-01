@@ -1,6 +1,4 @@
-include .env
-
-CC = c++
+CC = clang++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
@@ -18,11 +16,6 @@ SRC_FILE =  main.cpp
 # OBJ_FILE = $(SRC_FILE:.cpp=.o)
 
 all : $(NAME)
-
-push:
-	git add -A
-	git commit -m "$(msg)"
-	git push -u https://obounri:$(GIT_KEY)@github.com/obounri/ft_containers.git master 
 
 # %.o:%.cpp
 # 	$(CC) $(CFLAGS)  -c $< -o $@
