@@ -31,10 +31,10 @@ https://en.cppreference.com/w/cpp/iterator/iterator_traits#:~:text=std%3A%3Aiter
 https://en.cppreference.com/w/cpp/iterator/reverse_iterator  
 
 ### A bit deeper into c++:
-destruction and built-in types: https://stackoverflow.com/questions/71010802/will-destructor-delete-built-in-types-and-pointer-objects
-allocator: http://candcplusplus.com/c-allocator-class-member-functions
-iterators and reallocation: https://stackoverflow.com/questions/36300745/how-do-iterators-update-after-vector-reallocation
-insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(), clear() invalidate iterators, references and pointers
+destruction and built-in types: https://stackoverflow.com/questions/71010802/will-destructor-delete-built-in-types-and-pointer-objects  
+allocator: http://candcplusplus.com/c-allocator-class-member-functions  
+iterators and reallocation: https://stackoverflow.com/questions/36300745/how-do-iterators-update-after-vector-reallocation  
+insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(), clear() invalidate iterators, references and pointers  
 
 ### For map:
   data-structures:  
