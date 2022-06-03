@@ -40,7 +40,7 @@ insert(), emplace_back(), emplace(), push_back(), erase(), pop_back(), resize(),
   data-structures:  
   https://github.com/Bibeknam/algorithmtutorprograms  
   binary search tree:  
-  https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/. 
+  https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/  
   AVL tree - balanced binary search tree:  
   https://www.youtube.com/watch?v=vRwi_UcZGjU&ab_channel=BackToBackSWE  
   https://www.youtube.com/watch?v=FNeL18KsWPc&ab_channel=MITOpenCourseWare  
